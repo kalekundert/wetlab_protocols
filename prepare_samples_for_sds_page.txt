@@ -1,0 +1,40 @@
+Prepare Samples for SDS-PAGE
+============================
+1. Take the 1X BugBuster out of the fridge in the gel 
+   room and bring it to room temperature.  Make sure 
+   all of the detergent dissolves.  You can put the 
+   bottle on the 37°C block to speed the process up.
+
+2. Begin with a 1mL aliquot of cells.
+
+3. Pellet cells by spinning for 1 min at max speed 
+   (>10,000g) on a tabletop centrifuge.  Discard the 
+   supernatant.
+
+4. Resuspend the cell pellet in 200μL 1X BugBuster.  
+   Pipette to mix.
+
+5. Incubate the mixture on a shaking platform at room 
+   temperature until it is no longer cloudy (~5 min).
+
+6. Take a 20μL "lysate" aliquot.  Add 4μL 6X PSB to 
+   the aliquot, then keep it at room temperature.
+
+7. Separate the soluble and insoluble fractions by 
+   centrifuging at 21,000g for 30 min at 4°C.
+
+8. Take a 20μL "soluble" aliquot from the super- 
+   natant.  Add 4μL 6X PSB to the aliquot, then keep 
+   it at room temperature.  Discard the rest of the 
+   supernatant.
+
+9. Resuspend the insoluble pellet in 180μL 25mM Tris.
+
+10. Take a 20μL "insoluble" aliquot.  Add 4μL 6X PSB 
+    to the aliquot, then keep it at room temperature.
+
+11. Incubate the "lysate" and "soluble" aliquots at 
+    100°C for 5 min, and incubate the "insoluble" 
+    aliquot at 100°C for 15 min.
+
+vim: tw=53
