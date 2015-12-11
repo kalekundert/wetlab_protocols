@@ -22,7 +22,7 @@ if __name__ == '__main__':
     initial_volume = volume + transfer
 
     print("""\
-1. Put {initial_volume:.2f} μL RNA in the first tube.
+1. Put {initial_volume:.2f} μL material in the first tube.
 2. Add {volume:.2f} μL water in the remaining tubes.
 3. Perform a serial dilution, transferring {transfer:.2f} μL
    each time.
