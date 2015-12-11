@@ -19,12 +19,14 @@ if __name__ == '__main__':
 
     dilution = (low / high)**(1 / (steps - 1))
     transfer = volume * dilution / (1 - dilution)
+    initial_volume = volume + transfer
 
-    print('Perform a serial dilution using the following parameters:')
-    print('1. Put {:.2f} μL RNA in the first tube.'.format(volume + transfer))
-    print('2. Add {:.2f} μL water in the remaining tubes.'.format(volume))
-    print('3. Perform a serial dilution, transfering {:.2f} μL each time.'.format(transfer))
-    print()
+    print("""\
+1. Put {initial_volume:.2f} μL RNA in the first tube.
+2. Add {volume:.2f} μL water in the remaining tubes.
+3. Perform a serial dilution, transferring {transfer:.2f} μL
+   each time.
+""".format(**locals()))
     
     if args['--verbose']:
         from tabulate import tabulate
@@ -34,4 +36,4 @@ if __name__ == '__main__':
             for i in range(steps)
         ], tablefmt='plain', floatfmt='.2f'))
 
-
+# vim: tw=53
