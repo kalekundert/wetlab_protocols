@@ -12,10 +12,10 @@ Options:
 if __name__ == '__main__':
     import docopt
     args = docopt.docopt(__doc__)
-    volume = int(args['<volume>'])
-    high = int(args['<high>'])
-    low = int(args['<low>'])
-    steps = int(args['<steps>'])
+    volume = eval(args['<volume>'])
+    high = eval(args['<high>'])
+    low = eval(args['<low>'])
+    steps = eval(args['<steps>'])
 
     dilution = (low / high)**(1 / (steps - 1))
     transfer = volume * dilution / (1 - dilution)
@@ -34,6 +34,6 @@ if __name__ == '__main__':
         print(tabulate([
             [i+1, high * dilution**i]
             for i in range(steps)
-        ], tablefmt='plain', floatfmt='.2f'))
+        ], tablefmt='plain', floatfmt='.2e'))
 
 # vim: tw=53
