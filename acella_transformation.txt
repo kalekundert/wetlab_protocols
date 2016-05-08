@@ -1,0 +1,15 @@
+1. Thaw competent cells on ice (10 min).
+
+2. Mix 5 μL competent cells with 5 ng DNA.
+
+3. Rest on ice for 30 min.
+
+4. Heat shock at 42°C for 45 sec.
+
+5. Rest on ice for 2 min.
+
+6. Add 200 μL SOC.
+
+7. Recover at 37°C for 1 hour.
+
+8. Plate 100 μL on selective plates.
