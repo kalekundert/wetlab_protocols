@@ -1,0 +1,43 @@
+Day 1
+=====
+1. Reserve a shaker.
+
+2. Place the following items at 4°C overnight:
+
+    - >50 mL "rinse buffer" (100 mM CaCl₂)
+    - >8 mL "storage buffer" (60 mM CaCl₂, 10 mM 
+      Tris, 15% glycerol, pH 7.5)
+    - 1 50 mL pipet
+    - 1 10 mL pipet
+    - 1 box 200 μL pipet tips
+    - >80 0.6 mL tubes (autoclaved)
+    - tube rack
+
+3. Pick a colony and grow overnight in 4 mL LB at 
+   37°C with shaking.
+
+Day 2
+=====
+1. Inoculate 100 mL LB with 1 mL overnight culture.
+
+2. Grow the cells at 37°C with shaking at 225 rpm to 
+   an OD600 of 0.375 (~1h30).
+
+3. Spin the cells at 3500g for 10 min at 4°C.
+
+4. Gently resuspend the pellet in 50 mL rinse buffer.
+
+5. Rest the cells on ice for 1h.
+
+6. Spin the cells at 3500g for 10 min at 4°C.
+
+7. Gently resuspend the pellet in 8 mL storage 
+   buffer.
+
+8. Rest the cells on ice for 30 min.
+
+9. Aliquot the cells in ~80 100 μL portions.
+
+10. Flash-freeze in N₂ (ℓ) and store at -80°C.
+
+vim: tw=53
