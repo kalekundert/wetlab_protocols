@@ -19,14 +19,14 @@ from pprint import pprint
 # that looks like the Gtk module.  This will allow all my classes to be defined 
 # without error, and in gui_main() I can check to see whether or not the import 
 # was successful.
+from unittest.mock import Mock
 try:
-    from unittest.mock import Mock
     import gi; gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, GObject
-    from matplotlib.figure import Figure
-    from matplotlib.backends.backend_gtk3agg import FigureCanvasGTK3Agg as FigureCanvas
 except ImportError:
     Gtk, GObject = Mock(), Mock()
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_gtk3agg import FigureCanvasGTK3Agg as FigureCanvas
 
 
 class OdPredictor:
@@ -393,10 +393,11 @@ class TimeVsOd(Gtk.Grid):
 
     def add_row(self):
         row = self.EntryPair()
-        row.time.connect('activate', self.on_enter_time)
-        row.time.connect('focus-out-event', self.on_enter_time)
-        row.od.connect('activate', self.on_enter_od)
-        row.od.connect('focus-out-event', self.on_enter_od)
+        row.time.connect('activate', self.on_update_time)
+        row.time.connect('focus-out-event', self.on_update_time)
+        row.od.connect('activate', self.on_update_od)
+        row.od.connect('focus-out-event', self.on_update_od)
+        row.od.connect('focus-in-event', self.on_focus_od)
 
         i = len(self.entries)
 
@@ -405,15 +406,19 @@ class TimeVsOd(Gtk.Grid):
         self.grid.attach(row.od, 1, i, 1, 1)
         self.show_all()
 
-    def on_enter_time(self, widget, *args):
+    def on_update_time(self, widget, *args):
         self.emit('new-params')
 
+    def on_update_od(self, widget, *args):
+        self.emit('new-params')
+
+    def on_focus_od(self, widget, *args):
         # Add a new row to the widget if the last row is being filled in.
-        if widget is self.entries[-1].time:
-            self.add_row()
+        last_row = self.entries[-1]
+        if widget is last_row.od:
+            if last_row.time.get_text():
+                self.add_row()
 
-    def on_enter_od(self, widget, *args):
-        self.emit('new-params')
 
 
 class TimeEstimate(Gtk.VBox):
@@ -476,7 +481,9 @@ def cli_main():
 
 def gui_main():
     if isinstance(Gtk, Mock):
-        raise SystemExit("The gui requires the python bindings to GTK+ 3.0 (also called GObject introspection).")
+        raise SystemExit("""\
+The gui cannot run because the python bindings to GTK+ 3.0 (also called GObject 
+introspection) are not installed.""")
 
     win = Gtk.Window()
     win.connect("delete-event", Gtk.main_quit )
