@@ -420,7 +420,6 @@ class TimeVsOd(Gtk.Grid):
                 self.add_row()
 
 
-
 class TimeEstimate(Gtk.VBox):
 
     def __init__(self, params_editor):
