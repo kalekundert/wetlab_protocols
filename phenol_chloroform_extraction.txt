@@ -1,0 +1,26 @@
+1. Dilute your nucleic acid sample to 100-700 µL or 
+   divide your samples into tubes such that you have 
+   no more than 700 µL per tube. It is difficult to 
+   do the extraction with volumes smaller than 100 
+   µL. The sample can be concentrated again after 
+   precipitation.
+   
+2. Add an equal volume of phenol to the tube, vortex 
+   vigorously to mix the phases.
+
+3. Spin in a microfuge at top speed for 1-2 min to 
+   separate the phases.
+
+4. Remove the aqueous phase to a new tube, being 
+   careful not to transfer any of the protein at the 
+   phase interface.
+
+5. Repeat the phenol extraction two more times.
+
+6. Extract the sample two times with an equal volume 
+   of chloroform:isoamyl alcohol to remove any trace 
+   phenol.
+
+7. Precipitate the nucleic acid.
+
+vim: tw=53
