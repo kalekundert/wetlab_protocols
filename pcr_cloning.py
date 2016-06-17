@@ -34,6 +34,7 @@ pcr.num_reactions = eval(args['<num_reactions>'])
 pcr.annealing_temp = int(args['--annealing-temp'])
 pcr.extension_time = int(args['--extension-time'])
 pcr.make_primer_mix = args['--primer-mix']
+s = 's' if pcr.num_reactions != 1 else ''
 
 protocol += pcr
 
@@ -58,7 +59,7 @@ pnk.num_reactions = pcr.num_reactions
 pnk.extra_master_mix = 50
 
 protocol += """\
-Setup {pnk.num_reactions} phosphorylation reactions:
+Setup {pnk.num_reactions} phosphorylation reaction{s}:
 
 {pnk}
 
@@ -67,7 +68,10 @@ Setup {pnk.num_reactions} phosphorylation reactions:
 ## Ligation
 
 protocol += """\
-Add 1 μL T4 DNA ligase to each reaction.
+Start the ligation reaction{s}.
+
+- Add 1 μL 400 U/μL T4 DNA ligase to each 
+  reaction.
 
 - Incubate at 16°C overnight, or at 25°C for 1h if 
   you're in a hurry."""
