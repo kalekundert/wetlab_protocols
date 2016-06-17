@@ -16,6 +16,9 @@ Options:
     -x --extension-time <secs>      [default: 120]
         The length of the annealing step in seconds.  The rule of thumb is 30 
         sec/kb, perhaps longer if you're amplifying a whole plasmid.
+
+    -p --primer-mix
+        Show how to prepare the 10x primer mix.
 """
 
 import docopt
@@ -30,6 +33,7 @@ pcr = dirty_water.Pcr()
 pcr.num_reactions = eval(args['<num_reactions>'])
 pcr.annealing_temp = int(args['--annealing-temp'])
 pcr.extension_time = int(args['--extension-time'])
+pcr.make_primer_mix = args['--primer-mix']
 
 protocol += pcr
 
