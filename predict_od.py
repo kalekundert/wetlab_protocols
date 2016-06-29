@@ -15,18 +15,19 @@ from matplotlib import pyplot
 from pprint import pprint
 
 ## GUI imports
-# Try to import the GTK+3 bindings.  If that doesn't work, make a mock object 
-# that looks like the Gtk module.  This will allow all my classes to be defined 
-# without error, and in gui_main() I can check to see whether or not the import 
-# was successful.
+# Try to import the classes I need for the GTK+3 GUI.  If that doesn't work, 
+# make mock objects that look like those classes.  This will allow all my 
+# classes to be defined without error, and in gui_main() I can check to see 
+# whether or not the import was successful.
 from unittest.mock import Mock
 try:
     import gi; gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, GObject
+    from matplotlib.figure import Figure
+    from matplotlib.backends.backend_gtk3agg \
+            import FigureCanvasGTK3Agg as FigureCanvas
 except ImportError:
-    Gtk, GObject = Mock(), Mock()
-from matplotlib.figure import Figure
-from matplotlib.backends.backend_gtk3agg import FigureCanvasGTK3Agg as FigureCanvas
+    Gtk, GObject, Figure, FigureCanvas = Mock(), Mock(), Mock(), Mock()
 
 
 class OdPredictor:
@@ -127,7 +128,7 @@ class OdPredictor:
 
         axes.clear()
         axes.plot(known_times, known_ods, 'ko', fillstyle='none')
-        axes.plot(fit_times, fit_ods, 'k-')
+        axes.plot(fit_times, fit_ods, linestyle='-', color='#3465a4')
         axes.plot(fit_times, [self.target_od] * len(fit_times), '--', color='grey')
         axes.set_xlim(0, max_time)
         axes.set_xlabel('Time (min)')
@@ -238,7 +239,6 @@ class OdPredictorGui(Gtk.HBox):
         self.axes = self.fig.add_subplot(1, 1, 1)
         self.canvas = FigureCanvas(self.fig)
         self.canvas.set_size_request(300, 300)
-        self.fig.tight_layout(pad=3)
 
         self.pack_start(self.controls, False, False, 0)
         self.pack_start(self.canvas, True, True, 0)
@@ -248,6 +248,7 @@ class OdPredictorGui(Gtk.HBox):
     def on_new_params(self, *args):
         predictor = self.controls.get_params()
         predictor.plot_time_estimate(self.axes)
+        self.fig.tight_layout(pad=1.0)
         self.canvas.draw()
 
 
@@ -482,7 +483,7 @@ def gui_main():
     if isinstance(Gtk, Mock):
         raise SystemExit("""\
 The gui cannot run because the python bindings to GTK+ 3.0 (also called GObject 
-introspection) are not installed.""")
+introspection) or the GTK+ backend to matplotlib are not installed.""")
 
     win = Gtk.Window()
     win.connect("delete-event", Gtk.main_quit )
