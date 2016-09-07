@@ -1,6 +1,6 @@
 1. Thaw competent cells on ice (10 min).
 
-2. Mix 5 μL competent cells with 5 ng DNA.
+2. Mix 20 μL competent cells with 5 ng DNA.
 
 3. Rest on ice for 30 min.
 
