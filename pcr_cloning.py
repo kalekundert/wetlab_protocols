@@ -60,7 +60,7 @@ pnk.num_reactions = pcr.num_reactions
 pnk.extra_master_mix = 15
 
 protocol += """\
-Setup {pnk.num_reactions} phosphorylation reaction{s}:
+Setup {pnk.num_reactions} ligation reaction{s}:
 
 {pnk}
 
