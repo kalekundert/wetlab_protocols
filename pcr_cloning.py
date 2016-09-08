@@ -43,12 +43,6 @@ s = 's' if pcr.num_reactions != 1 else ''
 
 protocol += pcr
 
-protocol += """\
-Purify the amplified DNA.
-
-A PCR cleanup is enough if the reaction worked 
-well.  Otherwise do a gel extraction."""
-
 ## Phosphorylation
 
 pnk = dirty_water.Reaction('''\
