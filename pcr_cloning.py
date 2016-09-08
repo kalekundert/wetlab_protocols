@@ -54,32 +54,23 @@ well.  Otherwise do a gel extraction."""
 pnk = dirty_water.Reaction('''\
 Reagent                Conc  Each Rxn  Master Mix
 ================  =========  ========  ==========
-water                           13 μL         yes
-T4 ligase buffer        10x      2 μL         yes
-T4 PNK              10 U/μL      1 μL         yes
-PCR product       ≈50 ng/μL      3 μL
+water                         13.5 μL         yes
+T4 ligase buffer        10x    2.0 μL         yes
+T4 PNK              10 U/μL    0.5 μL         yes
+T4 DNA ligase      400 U/μL    0.5 μL         yes
+DpnI                20 U/μL    0.5 μL         yes
+PCR product       ≈50 ng/μL    3.0 μL
 ''')
 
 pnk.num_reactions = pcr.num_reactions
-pnk.extra_master_mix = 50
+pnk.extra_master_mix = 15
 
 protocol += """\
 Setup {pnk.num_reactions} phosphorylation reaction{s}:
 
 {pnk}
 
-- Incubate at 37°C for 1h."""
-
-## Ligation
-
-protocol += """\
-Start the ligation reaction{s}.
-
-- Add 1 μL 400 U/μL T4 DNA ligase to each 
-  reaction.
-
-- Incubate at 16°C overnight, or at 25°C for 1h if 
-  you're in a hurry."""
+- Incubate at room temperature for 1h."""
 
 ## Transformation
 
