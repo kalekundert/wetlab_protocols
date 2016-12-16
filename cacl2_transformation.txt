@@ -1,8 +1,14 @@
 1. Thaw competent cells on ice (10 min).
 
-2. Mix 20 μL competent cells with 5 ng DNA.
+2. Pipet once to mix the competent cells with the 
+   plasmid.
 
-3. Rest on ice for 30 min.
+   Strain   Cells   Plasmid
+   ──────────────────────────────
+   Top10    20 μL   1 μL (5 ng)
+   MG1655   70 μL   2 μL (>50 ng)
+
+3. Rest on ice for 2 min.
 
 4. Heat shock at 42°C for 45 sec.
 
@@ -12,4 +18,9 @@
 
 7. Recover at 37°C for 1 hour.
 
-8. Plate 100 μL on selective plates.
+8. Plate 100 μL on selective plates.  Alternatively, 
+   if you want to fit several transformations on a 
+   single plate, make a 10x dilution and spot 20 μL 
+   of each on a selective plate.
+
+vim: tw=53
