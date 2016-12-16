@@ -5,22 +5,21 @@
    µL. The sample can be concentrated again after 
    precipitation.
    
-2. Add an equal volume of phenol to the tube, vortex 
+2. Add an equal volume of phenol:chloroform:isoamyl 
+   alcohol (pH ≈8 for DNA) to the tube, vortex 
    vigorously to mix the phases.
 
 3. Spin in a microfuge at top speed for 1-2 min to 
    separate the phases.
 
-4. Remove the aqueous phase to a new tube, being 
-   careful not to transfer any of the protein at the 
-   phase interface.
+4. Transfer the aqueous (upper) phase to a new tube, 
+   being careful not to transfer any of the protein 
+   at the phase interface.
 
-5. Repeat the phenol extraction two more times.
+5. Repeat the phenol:chloroform:isoamyl alcohol 
+   extraction.
 
-6. Extract the sample two times with an equal volume 
-   of chloroform:isoamyl alcohol to remove any trace 
-   phenol.
-
-7. Precipitate the nucleic acid.
+6. Extract the sample with an equal volume of 
+   chloroform:isoamyl alcohol to remove the phenol.
 
 vim: tw=53
