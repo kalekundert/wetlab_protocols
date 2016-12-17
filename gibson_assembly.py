@@ -4,11 +4,6 @@ import sys, readline
 import numpy as np
 import numpy.linalg
 
-fragments = [
-        ('pBLO backbone', 2083, 24.6),
-        ('Liu insert',     207, 25.0),
-]
-
 print("""\
 Please provide names, lengths (bp), and concentrations (ng/μL) for each 
 fragment in the assembly.  Press Ctrl-D to finish, or Ctrl-C to abort.
