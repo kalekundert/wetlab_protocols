@@ -43,9 +43,8 @@ num_equations = m = n + 1
 names, molecular_weights, concentrations = zip(*fragments)
 mw, cs = molecular_weights, concentrations 
 
-# Construct the system of linear equations to solve 
-# for the amount of each fragment to add to the 
-# gibson.
+# Construct the system of linear equations to solve for the amount of each 
+# fragment to add to the gibson.
 
 A = np.zeros((m, m))
 
