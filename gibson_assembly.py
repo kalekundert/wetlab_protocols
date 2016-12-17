@@ -84,8 +84,8 @@ protocol += """\
 Incubate at 50°C for 1h."""
 
 protocol += """\
-Transform 5 μL of the crude reaction mixture with 20 
-μL chemically competent Top10 cells."""
+Transform 5 μL of the crude reaction mixture with 
+20 μL chemically competent Top10 cells."""
 
 print(protocol)
 
