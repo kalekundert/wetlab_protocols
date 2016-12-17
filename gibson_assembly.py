@@ -7,7 +7,7 @@ import numpy.linalg
 print("""\
 Please provide names, lengths (bp), and concentrations (ng/μL) for each 
 fragment in the assembly.  Press Ctrl-D to finish, or Ctrl-C to abort.
-""")
+""", file=sys.stderr)
 fragments = []
 
 while True:
