@@ -21,8 +21,8 @@ Options:
         The volume of the PCR reaction.  The recommended volumes for Q5 are 25
         and 50 μL.
 
-    -p --primer-mix
-        Show how to prepare the 10x primer mix.
+    -P --no-primer-mix
+        Don't show how to prepare the 10x primer mix.
 """
 
 import docopt
@@ -38,7 +38,7 @@ pcr.num_reactions = eval(args['<num_reactions>'])
 pcr.annealing_temp = int(args['--annealing-temp'])
 pcr.extension_time = int(args['--extension-time'])
 pcr.reaction.volume = float(args['--reaction-volume'])
-pcr.make_primer_mix = args['--primer-mix']
+pcr.make_primer_mix = not args['--no-primer-mix']
 s = 's' if pcr.num_reactions != 1 else ''
 
 protocol += pcr
