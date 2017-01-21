@@ -54,12 +54,12 @@ class Tray:
 
 class Comb:
 
-    def __init__(self, name, num_teeth, tooth_width_mm, tooth_length_mm, dead_space_mm):
+    def __init__(self, name, num_teeth, tooth_width_mm, tooth_length_mm, below_tooth_mm):
         self.name = name
         self.num_teeth = num_teeth
         self.tooth_width_mm = tooth_width_mm
         self.tooth_length_mm = tooth_length_mm
-        self.dead_space_mm = dead_space_mm
+        self.below_tooth_mm = below_tooth_mm
 
     @property
     def area_mm2(self):
@@ -79,13 +79,13 @@ class Config:
     @property
     def max_well_volume_uL(self):
         tray, comb = self.tray, self.comb
-        well_depth_mm = tray.max_depth_mm - comb.dead_space_mm
+        well_depth_mm = tray.max_depth_mm - comb.below_tooth_mm
         return comb.tooth_width_mm * comb.tooth_length_mm * well_depth_mm
 
     def gel_volume_mL(self, sample_uL, unit_mL):
         tray, comb = self.tray, self.comb
         well_depth_mm = sample_uL / comb.tooth_width_mm / comb.tooth_length_mm 
-        gel_depth_mm = well_depth_mm + comb.dead_space_mm
+        gel_depth_mm = well_depth_mm + comb.below_tooth_mm
         gel_volume_mL = tray.width_mm * tray.length_mm * gel_depth_mm / 1e3
 
         if unit_mL > 0:
@@ -107,25 +107,25 @@ trays = [
                 num_teeth=10,
                 tooth_width_mm=4.5,
                 tooth_length_mm=1.0,
-                dead_space_mm=2.0,
+                below_tooth_mm=2.0,
             ),
             Comb('B1A-10 (1.5 mm)',
                 num_teeth=10,
                 tooth_width_mm=4.5,
                 tooth_length_mm=1.5,
-                dead_space_mm=2.0,
+                below_tooth_mm=2.0,
             ),
             Comb('B1A-6 (1.0 mm)',
                 num_teeth=6,
                 tooth_width_mm=9.0,
                 tooth_length_mm=1.0,
-                dead_space_mm=2.0,
+                below_tooth_mm=2.0,
             ),
             Comb('B1A-6 (1.5 mm)',
                 num_teeth=6,
                 tooth_width_mm=9.0,
                 tooth_length_mm=1.5,
-                dead_space_mm=2.0,
+                below_tooth_mm=2.0,
             ),
         ],
     ),
@@ -139,37 +139,37 @@ trays = [
                 num_teeth=25,
                 tooth_width_mm=2.0,
                 tooth_length_mm=1.5,
-                dead_space_mm=2.0,
+                below_tooth_mm=2.0,
             ),
             Comb('B2-20 (1.0 mm)',
                 num_teeth=20,
                 tooth_width_mm=4.0,
                 tooth_length_mm=1.0,
-                dead_space_mm=2.0,
+                below_tooth_mm=2.0,
             ),
             Comb('B2-20 (1.5 mm)',
                 num_teeth=20,
                 tooth_width_mm=4.0,
                 tooth_length_mm=1.5,
-                dead_space_mm=2.0,
+                below_tooth_mm=2.0,
             ),
             Comb('B2-12 (1.0 mm)',
                 num_teeth=12,
                 tooth_width_mm=7.0,
                 tooth_length_mm=1.0,
-                dead_space_mm=2.0,
+                below_tooth_mm=2.0,
             ),
             Comb('B2-12 (1.5 mm)',
                 num_teeth=12,
                 tooth_width_mm=7.0,
                 tooth_length_mm=1.5,
-                dead_space_mm=2.0,
+                below_tooth_mm=2.0,
             ),
             Comb('B2-8',
                 num_teeth=8,
                 tooth_width_mm=12.0,
                 tooth_length_mm=1.5,
-                dead_space_mm=2.0,
+                below_tooth_mm=2.0,
             ),
         ],
     ),
@@ -183,7 +183,7 @@ trays = [
                 num_teeth=17,
                 tooth_width_mm=7.0,
                 tooth_length_mm=1.5,
-                dead_space_mm=2.0,
+                below_tooth_mm=2.0,
             ),
         ]
     ),
@@ -197,7 +197,35 @@ trays = [
                 num_teeth=16,
                 tooth_width_mm=3.5,
                 tooth_length_mm=2.0,
-                dead_space_mm=1.0,
+                below_tooth_mm=1.0,
+            ),
+        ],
+    ),
+    Tray('Biorad Mini-Sub Cell GT (7 cm)',
+        width_mm=62.0,
+        length_mm=70.0,
+        max_depth_mm=10.0,
+        num_slots=1,
+        combs=[
+            Comb('15',
+                num_teeth=15,
+                tooth_width_mm=2.5,
+                tooth_length_mm=1.5,
+                below_tooth_mm=1.5,
+            ),
+        ],
+    ),
+    Tray('Biorad Mini-Sub Cell GT (10 cm)',
+        width_mm=62.0,
+        length_mm=100.0,
+        max_depth_mm=10.0,
+        num_slots=2,
+        combs=[
+            Comb('15',
+                num_teeth=15,
+                tooth_width_mm=2.5,
+                tooth_length_mm=1.5,
+                below_tooth_mm=1.5,
             ),
         ],
     ),
@@ -218,7 +246,7 @@ if __name__ == '__main__':
 
     num_samples = int(args['<num_samples>'])
     sample_uL = float(args['<sample_μL>']) * (1 + float(args['--extra']) / 100)
-    percent_agarose = int(args['<percent_agarose>'] or 2)
+    percent_agarose = int(args['<percent_agarose>'] or 1)
     unit_mL = int(args['--round'])
     user_tray = re.compile(args['--tray'], re.I) if args['--tray'] else None
     user_comb = re.compile(args['--comb'], re.I) if args['--comb'] else None
