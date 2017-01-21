@@ -23,6 +23,10 @@ Options:
 
     -P --no-primer-mix
         Don't show how to prepare the 10x primer mix.
+
+    --skip-pcr
+        Don't show how to setup the PCR reaction, just show how to ligate and
+        transform the DNA.
 """
 
 import docopt
@@ -41,7 +45,8 @@ pcr.reaction.volume = float(args['--reaction-volume'])
 pcr.make_primer_mix = not args['--no-primer-mix']
 s = 's' if pcr.num_reactions != 1 else ''
 
-protocol += pcr
+if not args['--skip-pcr']:
+    protocol += pcr
 
 ## Phosphorylation
 
