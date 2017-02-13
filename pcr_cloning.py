@@ -6,13 +6,17 @@ Make a small modification to a plasmid by amplifying it with primers that have
 overhangs with your desired change.
 
 Usage:
-    pcr_cloning.py <num_reactions> [options]
+    pcr_cloning.py <num_reactions> <annealing_temp> [options]
+
+Arguments:
+    <num_reactions>
+        The number of reactions to set up.
+
+    <annealing_temp>
+        The annealing temperature for the PCR reaction (in °C).  I typically 
+        use NEB's online "Tm Calculator" to determine this parameter.
 
 Options:
-    -t --annealing-temp <celsius>   [default: 62]
-        The annealing temperature for the PCR reaction.  I typically use NEB's 
-        online "Tm Calculator" to determine this parameter.
-
     -x --extension-time <secs>      [default: 120]
         The length of the annealing step in seconds.  The rule of thumb is 30 
         sec/kb, perhaps longer if you're amplifying a whole plasmid.
@@ -43,7 +47,7 @@ protocol = dirty_water.Protocol()
 
 pcr = dirty_water.Pcr()
 pcr.num_reactions = eval(args['<num_reactions>'])
-pcr.annealing_temp = int(args['--annealing-temp'])
+pcr.annealing_temp = int(args['<annealing_temp>'])
 pcr.extension_time = int(args['--extension-time'])
 pcr.reaction.volume = float(args['--reaction-volume'])
 pcr.reaction['template DNA'].master_mix = 'dna' in args['--master-mix']
