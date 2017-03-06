@@ -1,0 +1,15 @@
+1L YPD
+──────
+1. Mix the following reagents:
+
+   - 20 g Bacto peptone
+   - 10 g yeast extract
+   - water to 950 mL
+
+2. Autoclave at 121°C for 30 min (cycle #5).
+
+3. Add 50 mL 40% (w/v) glucose and mix.
+
+4. Filter sterilize.
+
+
