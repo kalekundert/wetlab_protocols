@@ -6,7 +6,9 @@
    Strain   Cells   Plasmid
    ──────────────────────────────
    Top10    20 μL   1 μL (5 ng)
+            25 μL   2 μL (no heat-shock)
    MG1655   70 μL   2 μL (>50 ng)
+           100 μL   2 μL (no heat-shock)
 
 3. Rest on ice for 2 min.
 
