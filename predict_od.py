@@ -64,7 +64,7 @@ class OdPredictor:
     @property
     def time_points(self):
         times = [str_to_minutes(x[0]) for x in self._time_points]
-        ods = [float(x[1]) for x in self._time_points]
+        ods = [float(eval(x[1])) for x in self._time_points]
 
         # Estimate the initial OD if the user says how much overnight culture 
         # was subcultured and didn't actually measure the OD at t=0.  The user 
@@ -455,7 +455,7 @@ def growth_curve(t, *fit):
     return fit[0] * np.exp(fit[1] * t)
 
 def time_estimate(od, *fit):
-    return np.log(od/fit[0] + 1) / fit[1]
+    return np.log(od/fit[0]) / fit[1]
 
 def minutes_to_str(minutes):
     return '{}h{:02d}'.format(int(minutes//60), int(minutes % 60))
@@ -473,7 +473,7 @@ def str_to_minutes(str):
     return 60 * int(hours) + int(minutes)
 
 def float_or_none(x):
-    return float(x) if x is not None else None
+    return float(eval(x)) if x is not None else None
 
 
 def cli_main():
