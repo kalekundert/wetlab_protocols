@@ -55,8 +55,6 @@ pcr.reaction['primer mix'].master_mix = 'primers' in args['--master-mix']
 pcr.make_primer_mix = not args['--no-primer-mix']
 s = 's' if pcr.num_reactions != 1 else ''
 
-
-
 if not args['--skip-pcr']:
     protocol += pcr
 
