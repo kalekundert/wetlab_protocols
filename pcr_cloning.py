@@ -45,7 +45,7 @@ protocol = dirty_water.Protocol()
 
 ## PCR
 
-pcr = dirty_water.Pcr()
+pcr = dirty_water.Pcr(nc=25)
 pcr.num_reactions = eval(args['<num_reactions>'])
 pcr.annealing_temp = int(args['<annealing_temp>'])
 pcr.extension_time = int(args['--extension-time'])
