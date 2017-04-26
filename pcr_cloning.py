@@ -21,7 +21,7 @@ Options:
         The length of the annealing step in seconds.  The rule of thumb is 30 
         sec/kb, perhaps longer if you're amplifying a whole plasmid.
 
-    -v --reaction-volume <μL>       [default: 25]
+    -v --reaction-volume <μL>       [default: 10]
         The volume of the PCR reaction.  The recommended volumes for Q5 are 25
         and 50 μL.
 
