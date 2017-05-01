@@ -90,18 +90,23 @@ Setup {pnk.num_reactions} ligation reaction{s}:
 ## Transformation
 
 protocol += """\
-Transform the ligated DNA into Top10 cells."""
+Transform 2 μL ligated DNA into 20 μL CaCl₂ 
+competent Top10 cells."""
 
 ## Miniprep and sequence
 
 protocol += """\
-Pick individual colonies to grow overnight in 5 mL 
-selective media."""
+Pick 2-6 individual colonies for each reaction to 
+send for sequencing.  (You can pick fewer colonies 
+for reactions with shorter primers.)  Resuspend 
+the colonies in 30 μL EB, then send 15 μL for 
+sequencing and keep the rest at 4°C."""
 
 protocol += """\
-Miniprep the overnight culture to isolate pure 
-plasmid and send it for sequencing.  Store the 
-remaining DNA at -20°C."""
-
+Start 3.5 mL overnight cultures in selective media 
+for each picked colony.  If the sequencing data 
+isn't available by the next morning, pellet the 
+cells and store the pellets at -20°C.  Miniprep 
+the cultures with the right sequence."""
 
 print(protocol)
