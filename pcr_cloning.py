@@ -32,6 +32,10 @@ Options:
     -P --no-primer-mix
         Don't show how to prepare the 10x primer mix.
 
+    -a --additives <dmso,betaine>
+        Indicate which additives should be included in the reaction.  Valid
+        additives are 'dmso' and 'betaine'.
+
     --skip-pcr
         Don't show how to setup the PCR reaction, just show how to ligate and
         transform the DNA.
@@ -49,10 +53,12 @@ pcr = dirty_water.Pcr(nc=25)
 pcr.num_reactions = eval(args['<num_reactions>'])
 pcr.annealing_temp = int(args['<annealing_temp>'])
 pcr.extension_time = int(args['--extension-time'])
-pcr.reaction.volume = float(args['--reaction-volume'])
+pcr.dmso = 'dmso' in args['--additives']
+pcr.betaine = 'betaine' in args['--additives']
 pcr.reaction['template DNA'].master_mix = 'dna' in args['--master-mix']
 pcr.reaction['primer mix'].master_mix = 'primers' in args['--master-mix']
 pcr.make_primer_mix = not args['--no-primer-mix']
+pcr.reaction.volume = float(args['--reaction-volume'])
 s = 's' if pcr.num_reactions != 1 else ''
 
 if not args['--skip-pcr']:
