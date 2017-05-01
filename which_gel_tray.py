@@ -246,7 +246,7 @@ if __name__ == '__main__':
 
     num_samples = int(args['<num_samples>'])
     sample_uL = float(args['<sample_μL>']) * (1 + float(args['--extra']) / 100)
-    percent_agarose = int(args['<percent_agarose>'] or 1)
+    percent_agarose = float(args['<percent_agarose>'] or 1)
     unit_mL = int(args['--round'])
     user_tray = re.compile(args['--tray'], re.I) if args['--tray'] else None
     user_comb = re.compile(args['--comb'], re.I) if args['--comb'] else None
