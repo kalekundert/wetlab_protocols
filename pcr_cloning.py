@@ -25,9 +25,9 @@ Options:
         The volume of the PCR reaction.  The recommended volumes for Q5 are 25
         and 50 μL.
 
-    -m --master-mix <reagents>      [default: dna]
-        Indicate whether or not the primers and/or the DNA template should be 
-        included in the master mix.  Valid reagents are 'dna' and 'primers'.  
+    -m --master-mix <dna,primers,additives>      [default: dna]
+        Indicate which reagents should be included in the master mix.  Valid 
+        reagents are 'dna', 'primers', and 'additives',
 
     -P --no-primer-mix
         Don't show how to prepare the 10x primer mix.
@@ -55,8 +55,9 @@ pcr.annealing_temp = int(args['<annealing_temp>'])
 pcr.extension_time = int(args['--extension-time'])
 pcr.dmso = 'dmso' in args['--additives']
 pcr.betaine = 'betaine' in args['--additives']
-pcr.reaction['template DNA'].master_mix = 'dna' in args['--master-mix']
-pcr.reaction['primer mix'].master_mix = 'primers' in args['--master-mix']
+pcr.template_in_master_mix = 'dna' in args['--master-mix']
+pcr.primers_in_master_mix = 'primers' in args['--master-mix']
+pcr.additives_in_master_mix = 'additives' in args['--master-mix']
 pcr.make_primer_mix = not args['--no-primer-mix']
 pcr.reaction.volume = float(args['--reaction-volume'])
 s = 's' if pcr.num_reactions != 1 else ''
