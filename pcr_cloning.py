@@ -32,7 +32,7 @@ Options:
     -P --no-primer-mix
         Don't show how to prepare the 10x primer mix.
 
-    -a --additives <dmso,betaine>
+    -a --additives <dmso,betaine>   [default: '']
         Indicate which additives should be included in the reaction.  Valid
         additives are 'dmso' and 'betaine'.
 
