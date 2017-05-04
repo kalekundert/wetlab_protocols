@@ -29,12 +29,12 @@ Options:
         Indicate which reagents should be included in the master mix.  Valid 
         reagents are 'dna', 'primers', and 'additives',
 
-    -P --no-primer-mix
-        Don't show how to prepare the 10x primer mix.
-
     -a --additives <dmso,betaine>   [default: '']
         Indicate which additives should be included in the reaction.  Valid
         additives are 'dmso' and 'betaine'.
+
+    -P --no-primer-mix
+        Don't show how to prepare the 10x primer mix.
 
     --skip-pcr
         Don't show how to setup the PCR reaction, just show how to ligate and
