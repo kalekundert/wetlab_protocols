@@ -1,0 +1,88 @@
+Day 1
+=====
+1. Pick a colony and grow overnight in 5 mL YPD at 
+   30°C with shaking.
+   
+   Don't do this to much past 5:00, otherwise the 
+   overnight culture won't really be saturated.
+
+2. Place the following items and buffers at 4°C 
+   overnight:
+
+   - 10 mL milliQ water
+   - 10 mL 1M LiOAc
+   - 10 mL 50% PEG
+   - 2 1.5 mL tubes per transformation
+
+Day 2
+=====
+1. Inoculate fresh YPD with enough overnight culture 
+   to reach OD 0.15.
+
+   Use 15 mL media for each transformation you plan 
+   to do (e.g. 60 mL for 4 transformations).  The 
+   overnight culture should be near OD 10.0.
+
+2. Grow at 30°C until the cells reach OD 0.7 (≈5h).
+
+3. Linearize the DNA you're transforming by 
+   restriction digest:
+
+   - 3 μL water
+   - 5 μL DNA
+   - 1 μL 10x CutSmart buffer
+   - 1 μL NotI-HF
+
+   Incubate at 37°C for 20 min, then at 65°C for
+   20 min.
+
+4. Transfer the cells to one or more 50 mL Falcon 
+   tubes and pellet them at 3000g for 2 min.
+
+5. Resuspend the cells in 800 μL cold water and 
+   transfer them to a 1.5 mL Eppendorf tube.
+
+From this point on, the cells and all reagents should 
+be kept on ice unless otherwise specified.
+
+6. Pellet the cells at 3000g for 3 min at 4°C.
+
+7. Pipet off the water,then estimate the volume of 
+   the cells and resuspend them in an equal volume of 
+   cold water.
+
+8. Make as many 50 μL aliquots as you can/need.  
+
+9. Pellet the aliquots at 3000g for 3 min at 4°C, 
+   then pipet off the extra water.  There should be 
+   about 25 μL cells in each aliquot.
+
+9. Prepare the following mixture for each 
+   transformation:
+
+   - 36 μL 1M LiOAc
+   - 10 μL 2 mg/mL ssDNA (boiled for 5 min)
+   - 1 μL DNA (linearized)
+   - 73 μL water
+
+   Chill on ice.
+
+10. Gently mix each mixture into an aliquot of cells.
+
+11. Add 240 μL PEG to each transformation and vortex 
+    well to resuspend the cells.
+
+12. Heat shock at 42°C for 40 min.
+
+13. Pellet the cells at 3000g for 3 min and pipet off 
+    the supernatant.
+
+14. Resuspend the cells in 3 mL YPD.
+
+15. Recover the cells at 30°C for 3h.  This seems to 
+    be unnecessary for the LEU marker.
+
+16. Plate 200 uL on selective plates and incubate for 
+    2 days at 30°C.
+
+vim: tw=53
