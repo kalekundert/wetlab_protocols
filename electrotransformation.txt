@@ -1,0 +1,29 @@
+1. For each electrotransformation:
+
+  - Pre-warm 1 mL SOC and a selective plate.
+  
+  - Chill an electroporation cuvette and 2 μL 
+    (≈250 ng) of DNA on ice.  
+  
+  - Thaw an aliquot of competent cells on ice for 
+    ~10 min.
+  
+  - Pipet once to mix the cells with the DNA, then 
+    load into the cuvette.  Tap to remove bubbles.
+  
+  - Shock at 1.8 kV with a 5 ms decay time (for 
+    cuvettes with a 1 mm gap).
+  
+  - Immediately add 1 mL pre-warmed SOC.  If you're 
+    transforming multiple aliquots of cells with the 
+    same DNA, combine them.
+  
+  - Recover at 37°C for 1h.
+    
+  - Plate several 10x dilutions of cells (e.g. 10⁻³ 
+    to 10⁻⁶) to count how many were transformed.
+  
+  - Add 50 mL selective media and grow overnight at 
+    37°C.  Miniprep or miraprep the next morning.
+
+vim: tw=53
