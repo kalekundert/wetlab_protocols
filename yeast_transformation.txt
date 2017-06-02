@@ -19,9 +19,9 @@ Day 2
 1. Inoculate fresh YPD with enough overnight culture 
    to reach OD 0.15.
 
-   Use 15 mL media for each transformation you plan 
-   to do (e.g. 60 mL for 4 transformations).  The 
-   overnight culture should be near OD 10.0.
+   Use 15 mL media per transformation (e.g. 60 mL for 
+   4 transformations).  The overnight culture should 
+   be near OD 10.0.
 
 2. Grow at 30°C until the cells reach OD 0.7 (≈5h).
 
@@ -47,7 +47,7 @@ be kept on ice unless otherwise specified.
 
 6. Pellet the cells at 3000g for 3 min at 4°C.
 
-7. Pipet off the water,then estimate the volume of 
+7. Pipet off the water, then estimate the volume of 
    the cells and resuspend them in an equal volume of 
    cold water.
 
@@ -67,7 +67,8 @@ be kept on ice unless otherwise specified.
 
    Chill on ice.
 
-10. Gently mix each mixture into an aliquot of cells.
+10. Gently mix 120 μL of each mixture into an aliquot 
+    of cells.
 
 11. Add 240 μL PEG to each transformation and vortex 
     well to resuspend the cells.
