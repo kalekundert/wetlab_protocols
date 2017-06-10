@@ -1,0 +1,52 @@
+1. Setup a 50 mL bacterial culture in appropriate 
+   selective media and incubate on a shaker (250 rpm) 
+   at 37°C overnight.
+
+2. Transfer bacteria to a 50 mL Falcon tube and spin 
+   at 3270xg at 4°C for 10 min.
+
+3. Discard supernatant and resuspend pellet in 2 mL 
+   resuspension buffer (P1) with 50 μg/mL RNase (5 μL 
+   20 mg/mL) freshly added.
+
+4. Add 2 mL of lysis buffer (P2), invert 3-4 times 
+   and incubate for 3 min at RT.
+
+5. Add 2 mL of neutralization buffer (N3) and invert 
+   3-4 times.
+
+6. Distribute lysate into 1.5 mL Eppendorf tubes (~4 
+   tubes) by pouring, not pipetting.
+
+7. Spin at 13,200xg at RT for 10 min.
+
+8. Collect supernatants in a 15 mL tube and discard 
+   pellets.
+
+9. Add 1x volume of 96% ethanol (~5 mL).
+
+10. Mix thoroughly for 5 sec.
+
+11. Load the sample-ethanol mix onto 4 spin-columns.  
+
+12. Wash with 500 µL washing buffer.
+
+13. Wash with 500 μL washing buffer again.
+
+14. Spin at 13,200xg at RT for 1.5 min to remove 
+    residual ethanol.
+
+15. Add 30-35 µL of ddH2O to each spin-column and 
+    incubate for 2 min at RT.
+
+16. Spin at 13,200xg for 2 min to elute the DNA (into 
+    a fresh tube).
+
+17. Combine the eluted DNA from all 4 columns in one 
+    tube (~140 µL).
+
+18. Measure DNA concentration.
+
+19. Store samples at -20°C.
+
+vim: tw=53
