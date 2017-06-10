@@ -29,9 +29,9 @@
 
 11. Load the sample-ethanol mix onto 4 spin-columns.  
 
-12. Wash with 500 µL washing buffer.
+12. Wash with 500 µL washing buffer (PE).
 
-13. Wash with 500 μL washing buffer again.
+13. Wash with 500 μL washing buffer (PE) again.
 
 14. Spin at 13,200xg at RT for 1.5 min to remove 
     residual ethanol.
