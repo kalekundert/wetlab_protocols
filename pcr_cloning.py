@@ -29,6 +29,10 @@ Options:
         Indicate which reagents should be included in the master mix.  Valid 
         reagents are 'dna', 'primers', and 'additives',
 
+    -M --nothing-in-master-mix
+        Don't include anything but water and polymerase in the master mix.  
+        This is an alias for: -m ''
+
     -a --additives <dmso,betaine>   [default: '']
         Indicate which additives should be included in the reaction.  Valid
         additives are 'dmso' and 'betaine'.
@@ -55,9 +59,9 @@ pcr.annealing_temp = int(args['<annealing_temp>'])
 pcr.extension_time = int(args['--extension-time'])
 pcr.dmso = 'dmso' in args['--additives']
 pcr.betaine = 'betaine' in args['--additives']
-pcr.template_in_master_mix = 'dna' in args['--master-mix']
-pcr.primers_in_master_mix = 'primers' in args['--master-mix']
-pcr.additives_in_master_mix = 'additives' in args['--master-mix']
+pcr.template_in_master_mix = 'dna' in args['--master-mix'] and not args['--nothing-in-master-mix']
+pcr.primers_in_master_mix = 'primers' in args['--master-mix'] and not args['--nothing-in-master-mix']
+pcr.additives_in_master_mix = 'additives' in args['--master-mix'] and not args['--nothing-in-master-mix']
 pcr.make_primer_mix = not args['--no-primer-mix']
 pcr.reaction.volume = float(args['--reaction-volume'])
 s = 's' if pcr.num_reactions != 1 else ''
@@ -65,7 +69,7 @@ s = 's' if pcr.num_reactions != 1 else ''
 if not args['--skip-pcr']:
     protocol += pcr
 
-## Phosphorylation
+## Ligation
 
 pnk = dirty_water.Reaction('''\
 Reagent                Conc  Each Rxn  Master Mix
