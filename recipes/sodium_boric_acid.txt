@@ -1,0 +1,9 @@
+Sodium boric acid is an optimized electrophoresis buffer.  It can also be 
+prepared from borax and boric acid.
+
+20x sodium boric acid
+─────────────────────
+- 8.0 g NaOH (200 mM final)
+- 48.75 g boric acid (788 mM final)
+- water to 1L
+- pH should be near 8.0 (don't adjust)
