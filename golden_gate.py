@@ -8,9 +8,6 @@ Options:
     -e --enzyme <type_IIS>
         The name of the Type IIS restriction enzyme to use for the reaction.  
         The default is to use a generic name.
-        
-    -S --slow
-        Use the full 4h thermocycler protocol.
 """
 
 import docopt
@@ -47,9 +44,9 @@ Setup the Golden Gate reaction:
 protocol += f"""\
 Run the following thermocycler protocol:
 
-(a) 42°C for 5 min.
-(b) 16°C for 5 min.
-(c) Repeat steps (a) and (b) {30 if args['--slow'] else 5} times.
+(a) 42°C for 30 sec.
+(b) 16°C for 1 min.
+(c) Repeat steps (a) and (b) 30 times.
 (d) 55°C for 5 min.
 """
 
@@ -71,13 +68,10 @@ recommended here:
 
 http://barricklab.org/twiki/bin/view/Lab/ProtocolsGoldenGateAssembly
 
-The second thing worth noting is the number of 
-cycles. Most protocols I found online recommended 
-doing 30, but Anum told me earlier that she uses a 
-1h protocol for single inserts. I couldn’t find 
-her exact protocol, but I also didn’t have 5h to 
-kill, so I just reduced the number of cycles such 
-that the whole protocol took just under 1h.
+The second thing worth noting is the length of the 
+two temperature steps.  Most protocols I found 
+online hold each step for 5 min, but Anum cuts 
+this down for simple assemblies.
 """
 
 print(protocol)
