@@ -1,0 +1,15 @@
+100 mL 3M sodium acetate (pH 5)
+───────────────────────────────
+- 24.6 g anhydrous sodium acetate *or* 40.8 g sodium acetate trihydrate
+- milliQ water to ≈60 mL
+- stir to dissolve (30 min)
+- adjust pH to 5.0 with glacial acetic acid (≈20 mL, work in a hood)
+- milliQ water to 100 mL
+
+Notes:
+- I tried to use pH paper to track the titration until I got close to pH 5.0, 
+  but I overshot because the paper was not accurate (maybe it was expired).  
+  Next time, I would try just adding 15 mL of acetic acid to get close, then 
+  taking it out of the hood and measuring it's pH every time I add more acid.
+
+
