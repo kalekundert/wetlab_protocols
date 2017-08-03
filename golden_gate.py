@@ -8,6 +8,11 @@ Options:
     -e --enzyme <type_IIS>
         The name of the Type IIS restriction enzyme to use for the reaction.  
         The default is to use a generic name.
+
+    -m, --master-mix <bb,ins>   [default: ""]
+        Indicate which fragments should be included in the master mix.  Valid 
+        fragments are "bb" (for the backbone), "ins" (for all the inserts), 
+        "1" (for the first insert), etc.
 """
 
 import docopt
@@ -20,18 +25,26 @@ enzyme = args['--enzyme'] or 'Golden Gate enzyme'
 golden_gate = dirty_water.Reaction()
 golden_gate.num_reactions = args['<num_reactions>']
 golden_gate['Water'].std_volume = 7 - num_inserts * 0.5, 'μL'
+golden_gate['Water'].master_mix = True
 golden_gate['Backbone'].std_volume = 1.0, 'μL'
+golden_gate['Backbone'].master_mix = 'bb' in args['--master-mix']
+
 
 for i in range(num_inserts):
     name = f'Insert #{i+1}' if num_inserts > 1 else 'Insert'
     golden_gate[name].std_volume = 0.5, 'μL'
+    golden_gate[name].master_mix = \
+            'ins' in args['--master-mix'] or f'{i+1}' in args['--master-mix']
 
 golden_gate['T4 ligase buffer'].std_volume = 1.0, 'μL'
 golden_gate['T4 ligase buffer'].std_stock_conc = '10x'
+golden_gate['T4 ligase buffer'].master_mix = True
 golden_gate['T4 DNA ligase'].std_volume = 0.5, 'μL'
 golden_gate['T4 DNA ligase'].std_stock_conc = 400, 'U/μL'
+golden_gate['T4 DNA ligase'].master_mix = True
 golden_gate[enzyme].std_volume = 0.5, 'μL'
 golden_gate[enzyme].std_stock_conc = 10, 'U/μL'
+golden_gate[enzyme].master_mix = True
 
 protocol = dirty_water.Protocol()
 
