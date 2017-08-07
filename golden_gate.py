@@ -13,6 +13,10 @@ Options:
         Indicate which fragments should be included in the master mix.  Valid 
         fragments are "bb" (for the backbone), "ins" (for all the inserts), 
         "1" (for the first insert), etc.
+
+    -q, --quick
+        Use an shortened thermocycler protocol that completes in 1h, rather
+        than 5h.
 """
 
 import docopt
@@ -24,11 +28,10 @@ enzyme = args['--enzyme'] or 'Golden Gate enzyme'
 
 golden_gate = dirty_water.Reaction()
 golden_gate.num_reactions = args['<num_reactions>']
-golden_gate['Water'].std_volume = 7 - num_inserts * 0.5, 'μL'
+golden_gate['Water'].std_volume = 6.5 - num_inserts * 0.5, 'μL'
 golden_gate['Water'].master_mix = True
 golden_gate['Backbone'].std_volume = 1.0, 'μL'
 golden_gate['Backbone'].master_mix = 'bb' in args['--master-mix']
-
 
 for i in range(num_inserts):
     name = f'Insert #{i+1}' if num_inserts > 1 else 'Insert'
@@ -42,6 +45,9 @@ golden_gate['T4 ligase buffer'].master_mix = True
 golden_gate['T4 DNA ligase'].std_volume = 0.5, 'μL'
 golden_gate['T4 DNA ligase'].std_stock_conc = 400, 'U/μL'
 golden_gate['T4 DNA ligase'].master_mix = True
+golden_gate['DpnI'].std_volume = 0.5, 'μL'
+golden_gate['DpnI'].std_stock_conc = 20, 'U/μL'
+golden_gate['DpnI'].master_mix = True
 golden_gate[enzyme].std_volume = 0.5, 'μL'
 golden_gate[enzyme].std_stock_conc = 10, 'U/μL'
 golden_gate[enzyme].master_mix = True
@@ -57,10 +63,15 @@ Setup the Golden Gate reaction:
 protocol += f"""\
 Run the following thermocycler protocol:
 
-(a) 42°C for 30 sec.
-(b) 16°C for 1 min.
+(a) 42°C for {'30 sec' if args['--quick'] else '5 min'}.
+(b) 16°C for {'1 min' if args['--quick'] else '5 min'}.
 (c) Repeat steps (a) and (b) 30 times.
-(d) 55°C for 5 min.
+(d) 55°C for {'5 min' if args['--quick'] else '10 min'}.
+"""
+
+protocol += """\
+Transform all 10 μL of the Golden Gate reaction 
+into 100 μL CaCl₂ competent Top10 cells.
 """
 
 protocol.notes += """\
