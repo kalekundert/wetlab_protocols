@@ -27,7 +27,7 @@ num_inserts = int(args['<num_inserts>'])
 enzyme = args['--enzyme'] or 'Golden Gate enzyme'
 
 golden_gate = dirty_water.Reaction()
-golden_gate.num_reactions = args['<num_reactions>']
+golden_gate.num_reactions = int(args['<num_reactions>'])
 golden_gate['Water'].std_volume = 6.5 - num_inserts * 0.5, 'μL'
 golden_gate['Water'].master_mix = True
 golden_gate['Backbone'].std_volume = 1.0, 'μL'
@@ -55,7 +55,7 @@ golden_gate[enzyme].master_mix = True
 protocol = dirty_water.Protocol()
 
 protocol += """\
-Setup the Golden Gate reaction:
+Setup the Golden Gate reaction(s):
 
 {golden_gate}
 """
