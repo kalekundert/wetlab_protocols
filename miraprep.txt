@@ -3,7 +3,7 @@
    at 37°C overnight.
 
 2. Transfer bacteria to a 50 mL Falcon tube and spin 
-   at 3270xg at 4°C for 10 min.
+   at 3270xg at 4°C for 20 min.
 
 3. Discard supernatant and resuspend pellet in 2 mL 
    resuspension buffer (P1) with 50 μg/mL RNase (5 μL 
