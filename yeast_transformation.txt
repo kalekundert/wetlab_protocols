@@ -21,7 +21,8 @@ Day 2
 
    Use 15 mL media per transformation (e.g. 60 mL for 
    4 transformations).  The overnight culture should 
-   be near OD 10.0.
+   be near OD 10.0, so you should need about 225 μL 
+   of overnight culture per transformation.
 
 2. Grow at 30°C until the cells reach OD 0.7 (≈5h).
 
