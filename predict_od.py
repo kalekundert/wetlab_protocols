@@ -26,6 +26,9 @@ try:
     from matplotlib.figure import Figure
     from matplotlib.backends.backend_gtk3agg \
             import FigureCanvasGTK3Agg as FigureCanvas
+
+    # Ignore a warning about ffi.cast() that I can't do anything about.
+    import warnings; warnings.simplefilter("ignore", UserWarning)
 except ImportError:
     Gtk, GObject, Figure, FigureCanvas = Mock(), Mock(), Mock(), Mock()
 
@@ -109,13 +112,20 @@ class OdPredictor:
         return self._growth_fit
 
     @property
+    def doubling_time(self):
+        return np.log(2) / self.growth_fit[1]
+
+    @property
     def time_estimate(self):
         return time_estimate(self.target_od, *self.growth_fit)
 
     @property
     def time_estimate_str(self):
-        return "OD={} at {}".format(
-                self.target_od, minutes_to_str(self.time_estimate))
+        return "OD={} at {} (t½={})".format(
+                self.target_od,
+                minutes_to_str(self.time_estimate),
+                minutes_to_str(self.doubling_time),
+        )
 
     def plot_time_estimate(self, axes=None):
         if axes is None:
