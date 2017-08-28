@@ -40,7 +40,11 @@ Options:
     -P --no-primer-mix
         Don't show how to prepare the 10x primer mix.
 
-    --skip-pcr
+    -l --num-ligations <N>
+        The number of ligation reactions to setup.  By default, this is the 
+        same as the number of PCR reactions to perform.
+
+    -L --skip-pcr
         Don't show how to setup the PCR reaction, just show how to ligate and
         transform the DNA.
 """
@@ -82,7 +86,7 @@ DpnI                20 U/μL    0.5 μL         yes
 PCR product       ≈50 ng/μL    3.0 μL
 ''')
 
-pnk.num_reactions = pcr.num_reactions
+pnk.num_reactions = eval(args['--num-ligations'] or pcr.num_reactions)
 pnk.extra_master_mix = 15
 
 protocol += """\
