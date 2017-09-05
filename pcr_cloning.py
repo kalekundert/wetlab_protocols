@@ -86,7 +86,7 @@ DpnI                20 U/μL    0.5 μL         yes
 PCR product       ≈50 ng/μL    3.0 μL
 ''')
 
-pnk.num_reactions = eval(args['--num-ligations'] or pcr.num_reactions)
+pnk.num_reactions = eval(args['--num-ligations']) if args['--num-ligations'] else pcr.num_reactions
 pnk.extra_master_mix = 15
 
 protocol += """\
