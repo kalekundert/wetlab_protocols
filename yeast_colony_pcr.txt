@@ -1,0 +1,37 @@
+1. Setup the zymolase reaction:
+
+   - 49.4 μL water
+   - 3.33 μL OD 10.0 yeast
+   - 0.6 μL 5 U/μL zymolase
+
+2. Incubate at 37°C for 30 min, then at 95°C for 10 
+   min.
+
+3. Setup a 50 μL PCR reaction:
+
+   - 15 μL water
+   - 5 μL primer mix
+   - 5 μL zymolase reaction
+   - 25 μL 2x Q5 master mix
+
+4. Run the PCR for 22 cycles with a 12s extension 
+   time.
+
+5. Run 5 μL of the product on a gel to make sure the 
+   reaction worked.
+   
+Notes
+=====
+[1] All the protocols I looked at assume that you're picking a single colony 
+    for PCR.  I want to start the PCR from liquid culture, because I have a 
+    library, but I also want to use a similar number of cells as what the 
+    protocols expect:
+
+    1 colony ≈ 1e6 cells (bionumbers 100266 v5)
+    OD 1.0 ≈ 3e7 cells/mL
+
+    Assuming I have an overnight culture at OD 10.0:
+    
+    (1e6 cells) / (3e8 cells/mL) / (1e3 μL / 1 mL) = 3.33 μL o/n
+
+vim: tw=53
