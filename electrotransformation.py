@@ -31,8 +31,8 @@ electroporation.  For each transformation:
 
 - Pre-warm 1 mL SOC and a selective plate.
 
-- Chill an electroporation cuvette and 2 μL 
-  (≈250 ng) of DNA on ice.  
+- Chill an electroporation cuvette and 2 μL (≈250 
+  ng) of DNA on ice.  
 
 - Thaw an aliquot of competent cells on ice for 
   ~10 min.
@@ -44,19 +44,20 @@ electroporation.  For each transformation:
   cuvettes with a 1 mm gap).
 
 - Immediately add 1 mL pre-warmed SOC.  If you're 
-  transforming multiple aliquots of cells with the 
-  same DNA, combine them.
+  transforming multiple aliquots of cells with 
+  the same DNA, combine them.
 
 - Recover at 37°C for 1h.
   
-- Plate several dilutions of cells (e.g. from 10⁻³ 
-  to 10⁻⁶) to count how many were transformed.
+- Plate several 10x dilutions of cells (e.g.  
+  from 10⁻³ to 10⁻⁶) to count how many were 
+  transformed.
 
-- Transfer cells to 50 mL selective media and grow 
-  overnight at 37°C."""
+- Transfer cells to 50 mL selective media and 
+  grow overnight at 37°C."""
 
 if __name__ == '__main__':
     import docopt
     print(protocol)
 
-# vim: tw=50
+# vim: tw=49
