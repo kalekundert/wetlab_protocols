@@ -9,7 +9,7 @@ Day 1
       Tris, 15% glycerol, pH 7.5)
     - 1 50 mL pipet
     - 1 10 mL pipet
-    - >80 0.6 mL tubes (autoclaved)
+    - >80 PCR tubes
     - tips for aliquoting (repeater is easier)
     - tube rack
 
