@@ -40,9 +40,10 @@ Options:
     -P --no-primer-mix
         Don't show how to prepare the 10x primer mix.
 
-    -l --num-ligations <N>
-        The number of ligation reactions to setup.  By default, this is the 
-        same as the number of PCR reactions to perform.
+    -n --num-pcr <N>
+        The number of PCR reactions to measure master mix for. By default this 
+        is the same as the number of reactions, but may be different if you're 
+        being clever about setting up master mixes.
 
     -L --skip-pcr
         Don't show how to setup the PCR reaction, just show how to ligate and
@@ -58,7 +59,7 @@ protocol = dirty_water.Protocol()
 ## PCR
 
 pcr = dirty_water.Pcr(nc=25)
-pcr.num_reactions = eval(args['<num_reactions>'])
+pcr.num_reactions = eval(args['--num-pcr']) if args['--num-pcr'] else eval(args['<num_reactions>'])
 pcr.annealing_temp = int(args['<annealing_temp>'])
 pcr.extension_time = int(args['--extension-time'])
 pcr.dmso = 'dmso' in args['--additives']
@@ -70,12 +71,12 @@ pcr.make_primer_mix = not args['--no-primer-mix']
 pcr.reaction.volume = float(args['--reaction-volume'])
 s = 's' if pcr.num_reactions != 1 else ''
 
-if not args['--skip-pcr']:
+if pcr.num_reactions > 0 and not args['--skip-pcr']:
     protocol += pcr
 
 ## Ligation
 
-pnk = dirty_water.Reaction('''\
+kld = dirty_water.Reaction('''\
 Reagent                Conc  Each Rxn  Master Mix
 ================  =========  ========  ==========
 water                         13.5 μL         yes
@@ -86,13 +87,13 @@ DpnI                20 U/μL    0.5 μL         yes
 PCR product       ≈50 ng/μL    3.0 μL
 ''')
 
-pnk.num_reactions = eval(args['--num-ligations']) if args['--num-ligations'] else pcr.num_reactions
-pnk.extra_master_mix = 15
+kld.num_reactions = eval(args['<num_reactions>'])
+kld.extra_master_mix = 15
 
 protocol += """\
-Setup {pnk.num_reactions} ligation reaction{s}:
+Setup {kld.num_reactions} ligation reaction{s}:
 
-{pnk}
+{kld}
 
 - Incubate at room temperature for 1h."""
 
