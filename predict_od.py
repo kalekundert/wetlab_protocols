@@ -266,7 +266,7 @@ class ControlPanel(Gtk.Grid):
 
     __gsignals__ = {
             'new-params': (
-                GObject.SIGNAL_RUN_FIRST, None, ()),
+                GObject.SignalFlags.RUN_FIRST, None, ()),
     }
 
     def __init__(self):
@@ -312,12 +312,12 @@ class LabeledEntry(Gtk.VBox):
 
     __gsignals__ = {
             'new-params': (
-                GObject.SIGNAL_RUN_FIRST, None, ()),
+                GObject.SignalFlags.RUN_FIRST, None, ()),
     }
 
     def __init__(self, label, initial_value=None):
         super().__init__()
-        self.label = Gtk.Label(label)
+        self.label = Gtk.Label(label=label)
         self.label.set_justify(Gtk.Justification.LEFT)
         self.label.set_halign(Gtk.Align.START)
 
@@ -342,7 +342,7 @@ class TimeVsOd(Gtk.Grid):
 
     __gsignals__ = {
             'new-params': (
-                GObject.SIGNAL_RUN_FIRST, None, ()),
+                GObject.SignalFlags.RUN_FIRST, None, ()),
     }
 
     class EntryPair:
@@ -370,11 +370,11 @@ class TimeVsOd(Gtk.Grid):
         super().__init__()
         self.entries = []
 
-        time_label = Gtk.Label("Time")
+        time_label = Gtk.Label(label="Time")
         time_label.set_justify(Gtk.Justification.LEFT)
         time_label.set_halign(Gtk.Align.START)
 
-        od_label = Gtk.Label("OD")
+        od_label = Gtk.Label(label="OD")
         od_label.set_justify(Gtk.Justification.LEFT)
         od_label.set_halign(Gtk.Align.START)
 
@@ -435,7 +435,7 @@ class TimeEstimate(Gtk.VBox):
 
     def __init__(self, params_editor):
         super().__init__()
-        self.label = Gtk.Label("Time Estimate")
+        self.label = Gtk.Label(label="Time Estimate")
         self.label.set_justify(Gtk.Justification.LEFT)
         self.label.set_halign(Gtk.Align.START)
 
