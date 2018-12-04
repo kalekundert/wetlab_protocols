@@ -48,10 +48,10 @@ if args['--dnase']:
     protocol += f"""\
 Setup DNase reactions for each sample:
 
-- 1 µL 10 ezDNase buffer
-- 1 µL ezDNase enzyme (Invitrogen 11766051)
+- 0.5 µL 10 ezDNase buffer
+- 0.5 µL ezDNase enzyme (Invitrogen 11766051)
 - 1 µg RNA
-- Water to 6 µL
+- Water to 5 µL
 
 Consider preparing a 2x ezDNase master mix.
 """
@@ -63,7 +63,7 @@ centrifuge and place on ice.
 
     protocol += """\
 Add 2 µL SuperScript IV VILO master mix 
-(Invitrogen 11766050) and 2 µL water to each 
+(Invitrogen 11766050) and 3 µL water to each 
 sample.
 
 The master mix contains random hexamers, which 
