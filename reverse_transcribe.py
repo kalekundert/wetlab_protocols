@@ -39,7 +39,7 @@ Construct                   (ng/uL)     (µL)       (µL)
         conc =  row['conc']
         vol = 1000 / conc
         ref = 8 if not args['--dnase'] else 4
-        concs += f"{name:25s}    {conc:6.2f}   {vol:6.2f}    {ref-vol:6.2f}\n"
+        concs += f"{name:25s}   {conc:7.2f}   {vol:6.2f}    {ref-vol:6.2f}\n"
     concs += """\
 ───────────────────────────────────────────────────────
 """
