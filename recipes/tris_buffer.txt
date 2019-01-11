@@ -1,0 +1,7 @@
+1. Refer to Sigma's buffer table to determine how much Tris base and Tris HCl 
+   to mix to get the desired pH at the desired temperature:
+
+   https://www.sigmaaldrich.com/life-science/core-bioreagents/biological-buffers/learning-center/buffer-reference-center.html
+
+2. If desired, you can make a 0.5M stock solution by mixing the given masses 
+   (which a g/L for 50 mM) and dissolving them up in 100 mL.

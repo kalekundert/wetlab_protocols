@@ -1,0 +1,8 @@
+1L 5X TBE Buffer
+================
+Recipe from wikipedia
+
+54.0g Tris base (CAS# 77-86-1)
+27.5g boric acid (CAS# 10043-35-3)
+20.0mL 0.5 M EDTA (CAS# 60-00-4) (pH 8.0)
+
