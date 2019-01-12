@@ -42,7 +42,7 @@ import dirty_water
 
 args = docopt.docopt(__doc__)
 
-pcr = dirty_water.Pcr(nc=25)
+pcr = dirty_water.Pcr(nc=35)
 pcr.num_reactions = eval(args['<num_reactions>'])
 pcr.annealing_temp = int(args['<annealing_temp>'])
 pcr.extension_time = int(eval(args['--extension-time']))
