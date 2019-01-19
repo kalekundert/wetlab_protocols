@@ -7,6 +7,7 @@ overhangs with your desired change.
 
 Usage:
     pcr_cloning.py <num_reactions> <annealing_temp> [options]
+    pcr_cloning.py <num_reactions> -L [options]
 
 Arguments:
     <num_reactions>
@@ -58,21 +59,21 @@ protocol = dirty_water.Protocol()
 
 ## PCR
 
-pcr = dirty_water.Pcr(nc=25)
-pcr.num_reactions = eval(args['--num-pcr']) if args['--num-pcr'] else eval(args['<num_reactions>'])
-pcr.annealing_temp = int(args['<annealing_temp>'])
-pcr.extension_time = int(args['--extension-time'])
-pcr.dmso = 'dmso' in args['--additives']
-pcr.betaine = 'betaine' in args['--additives']
-pcr.template_in_master_mix = 'dna' in args['--master-mix'] and not args['--nothing-in-master-mix']
-pcr.primers_in_master_mix = 'primers' in args['--master-mix'] and not args['--nothing-in-master-mix']
-pcr.additives_in_master_mix = 'additives' in args['--master-mix'] and not args['--nothing-in-master-mix']
-pcr.make_primer_mix = not args['--no-primer-mix']
-pcr.reaction.volume = float(args['--reaction-volume'])
-s = 's' if pcr.num_reactions != 1 else ''
+if not args['--skip-pcr']:
+    pcr = dirty_water.Pcr(nc=25)
+    pcr.num_reactions = eval(args['--num-pcr']) if args['--num-pcr'] else eval(args['<num_reactions>'])
+    pcr.annealing_temp = int(args['<annealing_temp>'])
+    pcr.extension_time = int(args['--extension-time'])
+    pcr.dmso = 'dmso' in args['--additives']
+    pcr.betaine = 'betaine' in args['--additives']
+    pcr.template_in_master_mix = 'dna' in args['--master-mix'] and not args['--nothing-in-master-mix']
+    pcr.primers_in_master_mix = 'primers' in args['--master-mix'] and not args['--nothing-in-master-mix']
+    pcr.additives_in_master_mix = 'additives' in args['--master-mix'] and not args['--nothing-in-master-mix']
+    pcr.make_primer_mix = not args['--no-primer-mix']
+    pcr.reaction.volume = float(args['--reaction-volume'])
 
-if pcr.num_reactions > 0 and not args['--skip-pcr']:
-    protocol += pcr
+    if pcr.num_reactions > 0:
+        protocol += pcr
 
 ## Ligation
 
@@ -89,6 +90,7 @@ PCR product       ≈50 ng/μL    3.0 μL
 
 kld.num_reactions = eval(args['<num_reactions>'])
 kld.extra_master_mix = 15
+s = 's' if kld.num_reactions != 1 else ''
 
 protocol += """\
 Setup {kld.num_reactions} ligation reaction{s}:
