@@ -5,9 +5,10 @@ Usage:
     golden_gate.py <num_inserts> <num_reactions> [options]
 
 Options:
-    -e --enzyme <type_IIS>
-        The name of the Type IIS restriction enzyme to use for the reaction.  
-        The default is to use a generic name.
+    -e --enzymes <type_IIS>
+        The name(s) of the Type IIS restriction enzyme(s) to use for the 
+        reaction.  To use more than one enzyme, enter comma-separated names.  
+        The default is to use a single generic name.
 
     -m, --master-mix <bb,ins>   [default: ""]
         Indicate which fragments should be included in the master mix.  Valid 
@@ -24,11 +25,11 @@ import dirty_water
 
 args = docopt.docopt(__doc__)
 num_inserts = int(args['<num_inserts>'])
-enzyme = args['--enzyme'] or 'Golden Gate enzyme'
+enzymes = (args['--enzymes'] or 'Golden Gate enzyme').split(',')
 
 golden_gate = dirty_water.Reaction()
 golden_gate.num_reactions = int(args['<num_reactions>'])
-golden_gate['Water'].std_volume = 6.5 - num_inserts * 0.5, 'μL'
+golden_gate['Water'].std_volume = 7.0 - num_inserts * 0.5 - len(enzymes) * 0.5, 'μL'
 golden_gate['Water'].master_mix = True
 golden_gate['Backbone'].std_volume = 1.0, 'μL'
 golden_gate['Backbone'].master_mix = 'bb' in args['--master-mix']
@@ -48,9 +49,10 @@ golden_gate['T4 DNA ligase'].master_mix = True
 golden_gate['DpnI'].std_volume = 0.5, 'μL'
 golden_gate['DpnI'].std_stock_conc = 20, 'U/μL'
 golden_gate['DpnI'].master_mix = True
-golden_gate[enzyme].std_volume = 0.5, 'μL'
-golden_gate[enzyme].std_stock_conc = 10, 'U/μL'
-golden_gate[enzyme].master_mix = True
+for enzyme in enzymes:
+    golden_gate[enzyme].std_volume = 0.5, 'μL'
+    golden_gate[enzyme].std_stock_conc = 10, 'U/μL'
+    golden_gate[enzyme].master_mix = True
 
 protocol = dirty_water.Protocol()
 
@@ -63,15 +65,14 @@ Setup the Golden Gate reaction(s):
 protocol += f"""\
 Run the following thermocycler protocol:
 
-(a) 42°C for {'30 sec' if args['--quick'] else '5 min'}.
-(b) 16°C for {'1 min' if args['--quick'] else '5 min'}.
-(c) Repeat steps (a) and (b) 30 times.
-(d) 55°C for {'5 min' if args['--quick'] else '10 min'}.
+- Repeat 30 times:
+    - 42°C for {'30 sec' if args['--quick'] else '5 min'}
+    - 16°C for {'1 min' if args['--quick'] else '5 min'}
+- 55°C for {'5 min' if args['--quick'] else '10 min'}
 """
 
 protocol += """\
-Transform all 10 μL of the Golden Gate reaction 
-into 100 μL CaCl₂ competent Top10 cells.
+Transform all 10 μL of the Golden Gate reaction.
 """
 
 protocol.notes += """\
