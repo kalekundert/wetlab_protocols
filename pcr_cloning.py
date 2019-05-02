@@ -60,7 +60,7 @@ protocol = dirty_water.Protocol()
 ## PCR
 
 if not args['--skip-pcr']:
-    pcr = dirty_water.Pcr(nc=25)
+    pcr = dirty_water.Pcr()
     pcr.num_reactions = eval(args['--num-pcr']) if args['--num-pcr'] else eval(args['<num_reactions>'])
     pcr.annealing_temp = int(args['<annealing_temp>'])
     pcr.extension_time = int(args['--extension-time'])
