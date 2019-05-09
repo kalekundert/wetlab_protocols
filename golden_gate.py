@@ -155,7 +155,7 @@ insert.  Press Ctrl-D to finish, or Ctrl-C to abort.
 
     return fragments
 
-def calc_fragment_volumes(frags, vol_uL=5, excess_backbone=2):
+def calc_fragment_volumes(frags, vol_uL=5, excess_insert=2):
     import numpy as np
 
     num_fragments = n = len(frags)
@@ -170,8 +170,8 @@ def calc_fragment_volumes(frags, vol_uL=5, excess_backbone=2):
     for i, f in enumerate(frags):
         A[i,i] = f.conc_nM
 
-    A[:,n] =  1
-    A[0,n] =  excess_backbone
+    A[:,n] =  excess_insert
+    A[0,n] =  1
     A[n,:] =  1
     A[n,n] =  0
 
@@ -379,7 +379,7 @@ Run the following thermocycler protocol:
 
 - 37°C for 5 min
 
-Or, if you want higher efficiency:
+Or, to maximize the number of transformants:
 
 - 37°C for 60 min
 - 60°C for 5 min
@@ -408,10 +408,6 @@ Run the following thermocycler protocol:
   - 37°C for 5 min
   - 16°C for 5 min
 - 60°C for 5 min
-"""
-
-    protocol += """\
-Transform all 10 μL of the Golden Gate reaction.
 """
 
     protocol.notes += """\
