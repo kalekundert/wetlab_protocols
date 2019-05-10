@@ -6,6 +6,46 @@ Perform a Golden Gate assembly reaction.
 Usage:
     golden_gate.py [<fragments>] [<num_reactions>] [options]
 
+Arguments:
+    <fragments>
+        The DNA fragments to assemble.  For each fragment, the following 
+        information can be specified:
+        
+        - A name (optional): This is how the fragment will be referred to in 
+          the protocol, but will not have any effect other than that.  By 
+          default, a generic name like "Insert #1" will be chosen.
+
+        - A concentration (required): This is used to calculate how much of 
+          each fragment needs to be added to get the ideal backbone:insert 
+          ratio.  You may specify a unit (e.g. nM), but ng/µL will be assumed 
+          if you don't.
+
+        - A length (required if concentration is in ng/µL): The length of the 
+          fragment in bp.  This is used to convert the above concentration into
+          a molarity.
+
+        For each individual fragment, specify whichever of the above fields are 
+        relevant, separated by commas.  In other words:
+        
+            [<name>,]<conc>[,<length>]
+
+        Separate different fragments from each other with colons.  The first 
+        fragment is taken to be the backbone (which is typically present at 
+        half the concentration of the inserts, see --excess-insert).  There 
+        must be at least two fragments.
+
+        Putting everything together, this is how you would specify an assembly 
+        between a backbone that is 70 ng/µL and 1800 bp long, and an insert 
+        that is 34 nM:
+
+            70,1800:34nM
+
+        By default, or if the <fragments> argument is "-", you will be asked to 
+        provide the requisite fragment information via stdin. 
+
+    <num_reactions>
+        The number of reactions to setup.  The default is 1.
+
 Options:
     -e --enzymes <type_IIS>
         The name(s) of the Type IIS restriction enzyme(s) to use for the 
@@ -24,13 +64,15 @@ Options:
         
     -d, --dna-volume <µL>
         The combined volume of backbone and insert DNA to use, in µL.  The 
-        default is use the full reaction volume (see --reaction-volume) less 
-        the volumes of any enzymes and buffers.  You might want to use less DNA 
-        if you're trying to conserve material.
+        default is use the as much volume as possible, i.e. the full reaction 
+        volume (see --reaction-volume) less the volumes of any enzymes and 
+        buffers.  You might want to use less DNA if you're trying to conserve 
+        material.
 
-    -q, --quick
-        Use an shortened thermocycler protocol that completes in 1h, rather
-        than 5h.
+    -x, --excess-insert <ratio>  [default: 2]
+        The fold-excess of each insert relative to the backbone.  The default 
+        specifies that there will be twice as much of each insert as there 
+        is backbone.
 """
 
 import docopt
@@ -39,18 +81,10 @@ from dataclasses import dataclass
 
 def fragments_from_str(arg):
     """
-    Parse fragments from a comma- and semi-colon-separated string, i.e. that 
-    could be specified on the command-line.
+    Parse fragments from a comma- and colon-separated string, i.e. that could 
+    be specified on the command-line.
 
-    The given string should consist of multiple fragments, each separated by a 
-    semicolon.  Each fragment can consist of multiple fields, each separated by 
-    a comma.  The following fields can be specified (in the following order) 
-    for each fragment:
-
-    - Name (optional):
-    - Concentration: If no unit is given, 'ng/µL' is assumed and a size must be 
-      specified.
-    - Size (required for ng/µL): The length of the fragment in bp.
+    See the usage text for a description of the syntax of this string.
 
     Note that if only two fields are specified, they could refer to a name and 
     a concentration, or a concentration and a size.  This is resolved by 
@@ -60,7 +94,7 @@ def fragments_from_str(arg):
     """
 
     fragments = []
-    frag_strs = arg.split(';')
+    frag_strs = arg.split(':')
 
     if len(frag_strs) < 2:
         raise ValueError("must specify at least two fragments")
@@ -105,6 +139,7 @@ def fragments_from_input():
     import sys
     from builtins import print
     from functools import partial
+
     print = partial(print, file=sys.stderr)
     print("""\
 Please provide names and concentrations for each fragment in the assembly, 
@@ -117,7 +152,7 @@ insert.  Press Ctrl-D to finish, or Ctrl-C to abort.
 
     while True:
         try:
-            frag_name = default_fragment_name()
+            frag_name = default_fragment_name(len(fragments))
             print(f"{frag_name}:")
             print(f"  Name [optional]: ", end="")
             frag_name = input() or frag_name
@@ -231,52 +266,6 @@ class Concentration:
     value: float
     unit: str
 
-def test_fragments_from_str():
-    from pytest import approx, raises
-    f = Fragment
-
-    ## 0 fragments
-    with raises(ValueError):
-        fragments_from_str('')
-
-    ## 1 fragment
-    with raises(ValueError):
-        fragments_from_str('30nM')
-
-    ## 2 fragments
-     # 3 struments
-    assert fragments_from_str('30nM;Gene,60,1000') == [
-            f('Backbone', 30),
-            f('Gene', approx((60 * 1e6) / (650 * 1000))),
-    ]
-     # 2 struments: name, conc
-    assert fragments_from_str('30nM;Gene,60nM') == [
-            f('Backbone', 30),
-            f('Gene', 60),
-    ]
-    with raises(ValueError):
-        fragments_from_str('30nM;Gene,60')
-
-     # 2 struments: conc, size
-    assert fragments_from_str('30nM;60,1000') == [
-            f('Backbone', 30.0),
-            f('Insert #1', approx((60 * 1e6) / (650 * 1000))),
-    ]
-     # 1 strument: conc
-    assert fragments_from_str('30nM;60nM') == [
-            f('Backbone', 30),
-            f('Insert #1', 60),
-    ]
-    with raises(ValueError):
-        fragments_from_str('30nM;60')
-
-    ## 3 fragments
-    assert fragments_from_str('30nM;60nM;61nM') == [
-            f('Backbone', 30),
-            f('Insert #1', 60),
-            f('Insert #2', 61),
-    ]
-
 def test_conc_from_str():
     from pytest import approx, raises
     c = Concentration
@@ -315,6 +304,52 @@ def test_nM_from_conc():
     assert nM_from_conc(c(1, 'ng/µL'), 100) == approx(1e6/(650 * 100))
     assert nM_from_conc(c(1, 'ng/µL'), 1000) == approx(1e6/(650 * 1000))
 
+def test_fragments_from_str():
+    from pytest import approx, raises
+    f = Fragment
+
+    ## 0 fragments
+    with raises(ValueError):
+        fragments_from_str('')
+
+    ## 1 fragment
+    with raises(ValueError):
+        fragments_from_str('30nM')
+
+    ## 2 fragments
+     # 3 arguments
+    assert fragments_from_str('30nM:Gene,60,1000') == [
+            f('Backbone', 30),
+            f('Gene', approx((60 * 1e6) / (650 * 1000))),
+    ]
+     # 2 arguments: name, conc
+    assert fragments_from_str('30nM:Gene,60nM') == [
+            f('Backbone', 30),
+            f('Gene', 60),
+    ]
+    with raises(ValueError):
+        fragments_from_str('30nM:Gene,60')
+
+     # 2 arguments: conc, size
+    assert fragments_from_str('30nM:60,1000') == [
+            f('Backbone', 30.0),
+            f('Insert #1', approx((60 * 1e6) / (650 * 1000))),
+    ]
+     # 1 argument: conc
+    assert fragments_from_str('30nM:60nM') == [
+            f('Backbone', 30),
+            f('Insert #1', 60),
+    ]
+    with raises(ValueError):
+        fragments_from_str('30nM:60')
+
+    ## 3 fragments
+    assert fragments_from_str('30nM:60nM:61nM') == [
+            f('Backbone', 30),
+            f('Insert #1', 60),
+            f('Insert #2', 61),
+    ]
+
 
 if __name__ == '__main__':
     args = docopt.docopt(__doc__)
@@ -328,12 +363,16 @@ if __name__ == '__main__':
     if dna_vol_uL > max_dna_vol_uL:
         raise ValueError(f"Cannot fit {dna_vol_uL} µL of DNA in a {rxn_vol_uL} µL reaction.")
 
-    if args['<fragments>']:
+    if args['<fragments>'] and args['<fragments>'] != '-':
         frags = fragments_from_str(args['<fragments>'])
     else:
         frags = fragments_from_input()
 
-    calc_fragment_volumes(frags, vol_uL=dna_vol_uL)
+    calc_fragment_volumes(
+            frags,
+            vol_uL=dna_vol_uL,
+            excess_insert=float(args['--excess-insert']),
+    )
 
     # Create the reaction table.
     golden_gate = dirty_water.Reaction()
