@@ -80,12 +80,12 @@ if not args['--skip-pcr']:
 kld = dirty_water.Reaction('''\
 Reagent                Conc  Each Rxn  Master Mix
 ================  =========  ========  ==========
-water                         13.5 μL         yes
-T4 ligase buffer        10x    2.0 μL         yes
-T4 PNK              10 U/μL    0.5 μL         yes
-T4 DNA ligase      400 U/μL    0.5 μL         yes
-DpnI                20 U/μL    0.5 μL         yes
-PCR product       ≈50 ng/μL    3.0 μL
+water                         6.75 μL         yes
+T4 ligase buffer        10x   1.00 μL         yes
+T4 PNK              10 U/μL   0.25 μL         yes
+T4 DNA ligase      400 U/μL   0.25 μL         yes
+DpnI                20 U/μL   0.25 μL         yes
+PCR product       ≈50 ng/μL   1.50 μL
 ''')
 
 kld.num_reactions = eval(args['<num_reactions>'])
@@ -102,23 +102,7 @@ Setup {kld.num_reactions} ligation reaction{s}:
 ## Transformation
 
 protocol += """\
-Transform 2 μL ligated DNA into 20 μL CaCl₂ 
-competent Top10 cells."""
-
-## Miniprep and sequence
-
-protocol += """\
-Pick 2-6 individual colonies for each reaction to 
-send for sequencing.  (You can pick fewer colonies 
-for reactions with shorter primers.)  Resuspend 
-the colonies in 30 μL EB, then send 15 μL for 
-sequencing and keep the rest at 4°C."""
-
-protocol += """\
-Start 3.5 mL overnight cultures in selective media 
-for each picked colony.  If the sequencing data 
-isn't available by the next morning, pellet the 
-cells and store the pellets at -20°C.  Miniprep 
-the cultures with the right sequence."""
+Transform 1 μL ligated DNA into 10 μL MACH1 
+chemically-competent cells."""
 
 print(protocol)
