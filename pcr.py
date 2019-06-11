@@ -44,6 +44,12 @@ Options:
     -P --no-primer-mix
         Don't show how to prepare the 10x primer mix.
 
+    --dna-final-conc <pg_uL>
+        The final concentration of the template DNA in units of pg/µL.
+
+    --dna-stock-conc <pg_uL>  [default: 100]
+        The stock concentration of the template DNA in units of pg/µL.
+
 """
 
 import docopt
@@ -62,5 +68,9 @@ pcr.primers_in_master_mix = 'primers' in args['--master-mix'] and not args['--no
 pcr.additives_in_master_mix = 'additives' in args['--master-mix'] and not args['--nothing-in-master-mix']
 pcr.make_primer_mix = not args['--no-primer-mix']
 pcr.reaction.volume = float(args['--reaction-volume'])
+pcr.reaction['template DNA'].stock_conc = float(args['--dna-stock-conc'])
+
+if args['--dna-final-conc']:
+    pcr.reaction['template DNA'].conc = float(args['--dna-final-conc'])
 
 print(pcr)
