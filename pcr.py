@@ -13,10 +13,6 @@ Arguments:
         use NEB's online "Tm Calculator" to determine this parameter.
 
 Options:
-    -x --extension-time <secs>      [default: 120]
-        The length of the annealing step in seconds.  The rule of thumb is 30 
-        sec/kb, perhaps longer if you're amplifying a whole plasmid.
-
     -v --reaction-volume <μL>       [default: 10]
         The volume of the PCR reaction.  The recommended volumes for Q5 are 25
         and 50 μL.
@@ -29,12 +25,25 @@ Options:
         Don't include anything but water and polymerase in the master mix.  
         This is an alias for: -m ''
 
+    -p --polymerase <name>  [default: q5]
+        The name of the polymerase being used.  Different polymerases also have 
+        different thermocycler parameters, as recommended by the manufacturer.  
+        Currently, the following polymerases are supported:
+
+        q5: Q5 High-Fidelity DNA Polymerase (NEB)
+        ssoadv: SsoAdvanced™ Universal SYBR® Green Supermix (Biorad)
+
     -a --additives <dmso,betaine>   [default: '']
         Indicate which additives should be included in the reaction.  Valid
         additives are 'dmso' and 'betaine'.
 
+    -x --extension-time <secs>      [default: 120]
+        The length of the annealing step in seconds.  The rule of thumb is 30 
+        sec/kb, perhaps longer if you're amplifying a whole plasmid.
+
     -P --no-primer-mix
         Don't show how to prepare the 10x primer mix.
+
 """
 
 import docopt
@@ -42,7 +51,7 @@ import dirty_water
 
 args = docopt.docopt(__doc__)
 
-pcr = dirty_water.Pcr(nc=35)
+pcr = dirty_water.Pcr(polymerase=args['--polymerase'])
 pcr.num_reactions = eval(args['<num_reactions>'])
 pcr.annealing_temp = args['<annealing_temp>']
 pcr.extension_time = int(eval(args['--extension-time']))
