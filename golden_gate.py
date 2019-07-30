@@ -18,7 +18,9 @@ Arguments:
         - A concentration (required): This is used to calculate how much of 
           each fragment needs to be added to get the ideal backbone:insert 
           ratio.  You may specify a unit (e.g. nM), but ng/µL will be assumed 
-          if you don't.
+          if you don't.  You may also specify the concentration as just "PCR" 
+          (no other value or units).  This indicates that the fragment is the 
+          product of an unpurified PCR reaction, and is assumed to be 50 ng/μL.
 
         - A length (required if concentration is in ng/µL): The length of the 
           fragment in bp.  This is used to convert the above concentration into
@@ -29,7 +31,7 @@ Arguments:
         
             [<name>,]<conc>[,<length>]
 
-        Separate different fragments from each other with colons.  The first 
+        Separate different fragments from each other with ":".  The first 
         fragment is taken to be the backbone (which is typically present at 
         half the concentration of the inserts, see --excess-insert).  There 
         must be at least two fragments.
@@ -40,8 +42,8 @@ Arguments:
 
             70,1800:34nM
 
-        By default, or if the <fragments> argument is "-", you will be asked to 
-        provide the requisite fragment information via stdin. 
+        By default, or if this argument is "-", you will be asked to provide 
+        the requisite fragment information via stdin. 
 
     <num_reactions>
         The number of reactions to setup.  The default is 1.
@@ -225,6 +227,9 @@ def default_fragment_name(i):
 def conc_from_str(x):
     import re
 
+    if x.upper().strip() == 'PCR':
+        return Concentration(50, 'ng/µL')
+
     value_pattern = '[0-9.]+'
     unit_pattern = 'ng/[uµ]L|[muµnpf]M'
     conc_pattern = rf'({value_pattern})(\s*({unit_pattern}))?$'
@@ -253,7 +258,7 @@ def nM_from_conc(conc, num_bp):
     try:
         return conc.value * multiplier[conc.unit]
     except KeyError:
-        raise ValueError(f"cannot convert '{unit}' to nM.")
+        raise ValueError(f"cannot convert '{conc.unit}' to nM.")
 
 @dataclass
 class Fragment:
@@ -285,6 +290,9 @@ def test_conc_from_str():
     assert conc_from_str(' 1 nM') == c(1.0, 'nM')
     assert conc_from_str('1 nM ') == c(1.0, 'nM')
     assert conc_from_str(' 1  nM ') == c(1.0, 'nM')
+
+    assert conc_from_str('PCR') == c(50.0, 'ng/µL')
+    assert conc_from_str('pcr') == c(50.0, 'ng/µL')
 
     with raises(ValueError, match="''"):
         conc_from_str('')
