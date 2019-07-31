@@ -57,7 +57,7 @@ Options:
     -m, --master-mix <bb,ins>  [default: ""]
         Indicate which fragments should be included in the master mix.  Valid 
         fragments are "bb" (for the backbone), "ins" (for all the inserts), 
-        "1" (for the first insert), etc.
+        "1" (for the first insert), "2", "3", etc.
 
     -v, --reaction-volume <µL>  [default: 10]
         The volume of the complete Golden Gate reaction.  You might want bigger 
