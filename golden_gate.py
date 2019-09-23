@@ -365,11 +365,20 @@ if __name__ == '__main__':
     # Work out the volumes specified in the arguments.
     enzymes = (args['--enzymes'] or 'Golden Gate enzyme').split(',')
     rxn_vol_uL = int(args['--reaction-volume'])
-    max_dna_vol_uL = rxn_vol_uL - 1.5 - len(enzymes) * 0.5
-    dna_vol_uL = int(args['--dna-volume'] or max_dna_vol_uL)
+    max_dna_std_vol_uL = 10 - 1.5 - len(enzymes) * 0.5
+    std_vol = lambda x: 10 * x / rxn_vol_uL
+    real_vol = lambda x: rxn_vol_uL * x / 10
 
-    if dna_vol_uL > max_dna_vol_uL:
-        raise ValueError(f"Cannot fit {dna_vol_uL} µL of DNA in a {rxn_vol_uL} µL reaction.")
+    if args['--dna-volume']:
+        dna_std_vol_uL = std_vol(int(args['--dna-volume']))
+    else:
+        dna_std_vol_uL = max_dna_std_vol_uL
+
+    print(max_dna_std_vol_uL)
+    print(dna_std_vol_uL)
+
+    if dna_std_vol_uL > max_dna_std_vol_uL:
+        raise ValueError(f"Cannot fit {real_vol(dna_std_vol_uL)} µL of DNA in a {rxn_vol_uL} µL reaction.")
 
     if args['<fragments>'] and args['<fragments>'] != '-':
         frags = fragments_from_str(args['<fragments>'])
@@ -378,7 +387,7 @@ if __name__ == '__main__':
 
     calc_fragment_volumes(
             frags,
-            vol_uL=dna_vol_uL,
+            vol_uL=dna_std_vol_uL,
             excess_insert=float(args['--excess-insert']),
     )
 
@@ -386,8 +395,8 @@ if __name__ == '__main__':
     golden_gate = dirty_water.Reaction()
     golden_gate.num_reactions = int(args['<num_reactions>'] or 1)
 
-    if dna_vol_uL != max_dna_vol_uL:
-        golden_gate['Water'].std_volume = max_dna_vol_uL - dna_vol_uL, 'µL'
+    if dna_std_vol_uL != max_dna_std_vol_uL:
+        golden_gate['Water'].std_volume = max_dna_std_vol_uL - dna_std_vol_uL, 'µL'
         golden_gate['Water'].master_mix = True
 
     for i, frag in enumerate(frags):
@@ -410,6 +419,8 @@ if __name__ == '__main__':
     for enzyme in enzymes:
         golden_gate[enzyme].std_volume = 0.5, 'μL'
         golden_gate[enzyme].master_mix = True
+
+    golden_gate.volume = rxn_vol_uL
 
     # Create the protocol.
     protocol = dirty_water.Protocol()
