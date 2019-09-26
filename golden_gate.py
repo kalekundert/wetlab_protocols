@@ -374,9 +374,6 @@ if __name__ == '__main__':
     else:
         dna_std_vol_uL = max_dna_std_vol_uL
 
-    print(max_dna_std_vol_uL)
-    print(dna_std_vol_uL)
-
     if dna_std_vol_uL > max_dna_std_vol_uL:
         raise ValueError(f"Cannot fit {real_vol(dna_std_vol_uL)} µL of DNA in a {rxn_vol_uL} µL reaction.")
 
