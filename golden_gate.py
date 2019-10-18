@@ -396,13 +396,15 @@ if __name__ == '__main__':
         golden_gate['Water'].std_volume = max_dna_std_vol_uL - dna_std_vol_uL, 'µL'
         golden_gate['Water'].master_mix = True
 
+    master_mix = args['--master-mix'].split(',')
+
     for i, frag in enumerate(frags):
         golden_gate[frag.name].std_volume = frag.vol_uL, 'µL'
         golden_gate[frag.name].std_stock_conc = frag.conc.value, frag.conc.unit
         golden_gate[frag.name].master_mix = (
-                ('bb' in args['--master-mix'])
+                ('bb' in master_mix)
                 if i == 0 else
-                ('ins' in args['--master-mix'] or f'{i+1}' in args['--master-mix'])
+                ('ins' in master_mix or str(i) in master_mix)
         )
 
     golden_gate['T4 ligase buffer'].std_volume = 1.0, 'μL'
