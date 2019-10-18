@@ -364,13 +364,13 @@ if __name__ == '__main__':
 
     # Work out the volumes specified in the arguments.
     enzymes = (args['--enzymes'] or 'Golden Gate enzyme').split(',')
-    rxn_vol_uL = int(args['--reaction-volume'])
+    rxn_vol_uL = eval(args['--reaction-volume'])
     max_dna_std_vol_uL = 10 - 1.5 - len(enzymes) * 0.5
     std_vol = lambda x: 10 * x / rxn_vol_uL
     real_vol = lambda x: rxn_vol_uL * x / 10
 
     if args['--dna-volume']:
-        dna_std_vol_uL = std_vol(int(args['--dna-volume']))
+        dna_std_vol_uL = std_vol(eval(args['--dna-volume']))
     else:
         dna_std_vol_uL = max_dna_std_vol_uL
 
@@ -390,7 +390,7 @@ if __name__ == '__main__':
 
     # Create the reaction table.
     golden_gate = dirty_water.Reaction()
-    golden_gate.num_reactions = int(args['<num_reactions>'] or 1)
+    golden_gate.num_reactions = float(args['<num_reactions>'] or 1)
 
     if dna_std_vol_uL != max_dna_std_vol_uL:
         golden_gate['Water'].std_volume = max_dna_std_vol_uL - dna_std_vol_uL, 'µL'
