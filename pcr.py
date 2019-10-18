@@ -71,7 +71,7 @@ pcr = dirty_water.Pcr(
 )
 pcr.num_reactions = eval(args['<num_reactions>'])
 pcr.annealing_temp = args['<annealing_temp>']
-pcr.extension_time = int(eval(args['<extension_time>']))
+pcr.extension_time = args['<extension_time>']
 pcr.dmso = 'dmso' in args['--additives']
 pcr.betaine = 'betaine' in args['--additives']
 pcr.template_in_master_mix = 'dna' in args['--master-mix'] and not args['--nothing-in-master-mix']
