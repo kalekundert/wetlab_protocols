@@ -19,6 +19,10 @@ Options:
         If the template is not concentrated enough to reach the given quantity, 
         the reaction will just contain as much DNA as possible instead.
 
+    -V --dna-vol UL
+        The volume of DNA to add to the reaction.  If specified, the --dna-conc
+        and --dna-ng arguments will be ignored.
+
     -k --kit BRAND   [default: hiscribe]
         Which in vitro transcription kit to use.  Valid options are 'hiscribe'
         and 'ampliscribe'.
@@ -62,9 +66,21 @@ ivtt = dirty_water.Reaction()
 ivtt.num_reactions = eval(args['<reactions>'])
 ivtt.extra_master_mix = float(args['--extra'])
 
-dna_ng = float(args['--dna-ng'])
-dna_ng_uL = float(args['--dna-conc'])
-dna_uL = dna_ng / dna_ng_uL
+if args['--dna-vol']:
+    dna_uL = float(args['--dna-vol'])
+    dna_ng_uL = float(args['--dna-conc'])
+    err = {
+            'desired_dna': f'{dna_uL} µL',
+            'max_dna': lambda x: f'{x} µL',
+    }
+else:
+    dna_ng = float(args['--dna-ng'])
+    dna_ng_uL = float(args['--dna-conc'])
+    dna_uL = dna_ng / dna_ng_uL
+    err = {
+            'desired_dna': f'{dna_ng} ng',
+            'max_dna': lambda x: f'{x * dna_ng_uL} ng',
+    }
 
 if 'hiscribe'.startswith(args['--kit'].lower()):
     incubation_time = args['--incubate'] or 2
@@ -74,7 +90,7 @@ if 'hiscribe'.startswith(args['--kit'].lower()):
     water_uL = non_reagent_uL - dna_uL
 
     if water_uL <= 0:
-        print(f"Warning: cannot reach {dna_ng} ng of DNA, using {non_reagent_uL * dna_ng_uL} ng instead.", end="\n\n")
+        print(f"Warning: cannot reach {err['desired_dna']} of DNA, using {err['max_dna'](non_reagent_uL)} instead.", end="\n\n")
         dna_uL = non_reagent_uL
     else:
         ivtt['nuclease-free water'].std_volume = water_uL, 'μL'
@@ -126,7 +142,7 @@ elif 'ampliscribe'.startswith(args['--kit'].lower()):
     water_uL = non_reagent_uL - dna_uL
 
     if water_uL <= 0:
-        print(f"Warning: cannot reach {dna_ng} ng of DNA, using {non_reagent_uL * dna_ng_uL} ng instead.", end="\n\n")
+        print(f"Warning: cannot reach {err['desired_dna']} of DNA, using {err['max_dna'](non_reagent_uL)} instead.", end="\n\n")
         dna_uL = non_reagent_uL
     else:
         ivtt['nuclease-free water'].std_volume = water_uL, 'μL'
