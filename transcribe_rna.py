@@ -67,7 +67,7 @@ dna_ng_uL = float(args['--dna-conc'])
 dna_uL = dna_ng / dna_ng_uL
 
 if 'hiscribe'.startswith(args['--kit'].lower()):
-    incubation_time = args['--incubate'] or 4
+    incubation_time = args['--incubate'] or 2
     incubation_temp = '37'
 
     non_reagent_uL = 20 - 12.5
