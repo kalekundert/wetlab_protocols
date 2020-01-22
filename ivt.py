@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 
 """\
-Display a protocol for running the given number of in vitro transcription 
-reactions.
+Display a protocol for running in vitro transcription reactions.
 
 Usage:
-    ./transcribe_rna.py <reactions> [options]
+    ivt <reactions> [options]
 
 Options:
     -d --dna-conc NG_PER_UL  [default: 500]
