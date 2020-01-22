@@ -1,0 +1,14 @@
+1. Verify the concentration of both oligos.  The more 
+   accurate the oligo concentrations are, the less 
+   unannealed DNA there will be.
+
+2. Prepare 2x stocks of both oligos.
+
+3. Mix equal volumes of the 2x stocks.
+
+4. Run the following thermocycle protocol:
+
+   - 95°C for 2 min.
+   - Cool to 25°C at 1.5°C/min
+
+# vim: tw=53
