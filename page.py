@@ -59,7 +59,7 @@ def config_native(params):
     params['sample_mix'] = stepwise.MasterMix.from_text("""\
 Reagent             Stock   Volume  MM?
 ==============  =========  =======  ===
-water                      2.25 µL  yes
+water                      6.00 µL  yes
 sample buffer          4x   2.5 µL  yes
 G-250 additive         5%  0.25 µL  yes
 DNA/protein                1.25 µL
@@ -68,7 +68,7 @@ DNA/protein                1.25 µL
     params['load'] = '5 µL'
     params['run'] = '150V for 115 min'
     params['hints'] = """\
-- For a DNA ladder, use 5 µL 50 ng/µL.
+- For a DNA ladder, use 5 µL (50 ng/µL).
 """
     if not args['--coomassie']:
         del params['sample_mix']['G-250 additive']
