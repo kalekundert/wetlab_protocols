@@ -1,0 +1,31 @@
+- Purify DNA using magnetic beads [1].
+
+  - Gently resuspend the bead solution [2].
+  - Add 1 volume of bead solution to each sample.
+  - Incubate 5 min at RT.
+  - Apply magnet for >2 min and discard supernatant.
+  - Add 200 µL 70% EtOH.
+  - Incubate 30 sec at RT.
+  - Apply to magnet and discard ethanol.
+  - Repeat ethanol wash.
+  - Air-dry for 4-5 minutes [3].
+  - Add any volume of eluant.
+  - Apply magnet for >2 min.
+  - Transfer ≈95% of the eluant to a clean tube.
+
+Notes:
+
+[1] See "Magnetic Bead DNA Purification" in my Google 
+    Drive for more details.
+
+[2] Don't vortex; this damages the beads (somehow).
+
+[3] Be careful not to over-dry the beads.  Over-dried
+    beads will appear cracked and will be difficult 
+    to resuspend.  If this happens, heat and agitate 
+    for 10-15 minutes during elution to help 
+    resuspend the beads and release the DNA.  An 
+    alternative strategy is to add the eluant after a 
+    very short drying step, then leaving the tubes 
+    open for 10-15 minutes to allow the ethanol to 
+    evaporate.
