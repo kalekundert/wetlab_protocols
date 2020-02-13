@@ -1,0 +1,12 @@
+- Prepare 100 mg/mL (1000x) carbenicillin:
+
+  - 4 g carbenicillin disodium salt
+  - 40 mL 50% EtOH [1]
+  - Store at −20°C
+
+Notes:
+
+[1] Most recipes call for carbenicillin to dissolved in water, but 50% ethanol 
+    is more convenient because it can be stored at −20°C without freezing.
+
+

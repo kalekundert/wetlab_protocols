@@ -1,0 +1,8 @@
+- Prepare 50 mg/mL (1000x) kanamycin:
+
+  - 2 g kanamycin
+  - 40 ml water
+  - Filter sterilize (0.2 µm)
+  - Aliquot (e.g. 1 mL, 200 µL)
+  - Store at −20°C
+  

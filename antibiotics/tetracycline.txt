@@ -1,0 +1,14 @@
+- Prepare 10 mg/mL (1000x) tetracycline [1,2]:
+
+  - 400 mg anhydrous tetracycline HCl
+  - 40 mL 70% EtOH
+  - Store at -20°C, wrapped in foil.
+
+Notes:
+
+[1] Tetracycline is chelated by magnesium ions, and thus unsuitable for use in 
+    minimal media.  
+
+[2] Some recipes call for filter sterilization, but I believe that this is 
+    unnecessary because the solution is 70% EtOH.
+
