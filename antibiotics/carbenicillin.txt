@@ -6,7 +6,9 @@
 
 Notes:
 
-[1] Most recipes call for carbenicillin to dissolved in water, but 50% ethanol 
-    is more convenient because it can be stored at −20°C without freezing.
+[1] Most recipes call for carbenicillin to dissolved 
+    in water, but 50% ethanol also works and is more 
+    convenient because it can be stored at −20°C 
+    without freezing.
 
 
