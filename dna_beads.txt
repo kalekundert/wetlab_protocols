@@ -4,10 +4,10 @@
   - Add 1 volume of bead solution to each sample.
   - Incubate 5 min at RT.
   - Apply magnet for >2 min and discard supernatant.
-  - Add 200 µL 70% EtOH.
-  - Incubate 30 sec at RT.
-  - Apply to magnet and discard ethanol.
-  - Repeat ethanol wash.
+  - Wash twice:
+    - Add 200 µL 70% EtOH.
+    - Incubate 30 sec at RT.
+    - Apply to magnet and discard ethanol.
   - Air-dry for 4-5 minutes [3].
   - Add any volume of eluant.
   - Apply magnet for >2 min.
