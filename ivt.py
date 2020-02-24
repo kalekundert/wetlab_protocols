@@ -54,16 +54,17 @@ Options:
 
 import docopt
 import dirty_water
-from nonstdlib import plural
+import stepwise
+from inform import warn, plural
 
 args = docopt.docopt(__doc__)
-protocol = dirty_water.Protocol()
+protocol = stepwise.Protocol()
 
 ## Calculate reagent volumes.
 
-ivtt = dirty_water.Reaction()
-ivtt.num_reactions = eval(args['<reactions>'])
-ivtt.extra_master_mix = float(args['--extra'])
+ivt = dirty_water.Reaction()
+ivt.num_reactions = eval(args['<reactions>'])
+ivt.extra_master_mix = float(args['--extra'])
 
 if args['--dna-vol']:
     dna_uL = float(args['--dna-vol'])
@@ -89,49 +90,49 @@ if 'hiscribe'.startswith(args['--kit'].lower()):
     water_uL = non_reagent_uL - dna_uL
 
     if water_uL <= 0:
-        print(f"Warning: cannot reach {err['desired_dna']} of DNA, using {err['max_dna'](non_reagent_uL)} instead.", end="\n\n")
+        warn = f"Cannot reach the recommended {err['desired_dna']} of DNA, using {err['max_dna'](non_reagent_uL)} instead."
         dna_uL = non_reagent_uL
     else:
-        ivtt['nuclease-free water'].std_volume = water_uL, 'μL'
-        ivtt['nuclease-free water'].master_mix = True
+        ivt['nuclease-free water'].std_volume = water_uL, 'μL'
+        ivt['nuclease-free water'].master_mix = True
 
-    ivtt['reaction buffer'].std_volume = 2.0, 'μL'
-    ivtt['reaction buffer'].std_stock_conc = '10x'
-    ivtt['reaction buffer'].master_mix = True
+    ivt['reaction buffer'].std_volume = 2.0, 'μL'
+    ivt['reaction buffer'].std_stock_conc = '10x'
+    ivt['reaction buffer'].master_mix = True
 
-    ivtt['RNase inhibitor'].std_volume = 0.5, 'μL'
-    ivtt['RNase inhibitor'].master_mix = True
-    ivtt['RNase inhibitor'].std_stock_conc = 40, 'U/μL'
-    ivtt['RNase inhibitor'].product_number = 'NEB M0307S'
+    ivt['RNase inhibitor'].std_volume = 0.5, 'μL'
+    ivt['RNase inhibitor'].master_mix = True
+    ivt['RNase inhibitor'].std_stock_conc = 40, 'U/μL'
+    ivt['RNase inhibitor'].product_number = 'NEB M0307S'
 
     if args['--no-rntp-mix']:
-        ivtt['ATP'].std_volume = 2.0, 'μL'
-        ivtt['ATP'].master_mix = True
-        ivtt['ATP'].std_stock_conc = 100, 'mM'
+        ivt['ATP'].std_volume = 2.0, 'μL'
+        ivt['ATP'].master_mix = True
+        ivt['ATP'].std_stock_conc = 100, 'mM'
 
-        ivtt['CTP'].std_volume = 2.0, 'μL'
-        ivtt['CTP'].master_mix = True
-        ivtt['CTP'].std_stock_conc = 100, 'mM'
+        ivt['CTP'].std_volume = 2.0, 'μL'
+        ivt['CTP'].master_mix = True
+        ivt['CTP'].std_stock_conc = 100, 'mM'
 
-        ivtt['GTP'].std_volume = 2.0, 'μL'
-        ivtt['GTP'].master_mix = True
-        ivtt['GTP'].std_stock_conc = 100, 'mM'
+        ivt['GTP'].std_volume = 2.0, 'μL'
+        ivt['GTP'].master_mix = True
+        ivt['GTP'].std_stock_conc = 100, 'mM'
 
-        ivtt['UTP'].std_volume = 2.0, 'μL'
-        ivtt['UTP'].master_mix = True
-        ivtt['UTP'].std_stock_conc = 100, 'mM'
+        ivt['UTP'].std_volume = 2.0, 'μL'
+        ivt['UTP'].master_mix = True
+        ivt['UTP'].std_stock_conc = 100, 'mM'
     else:
-        ivtt['rNTP mix'].std_volume = 8.0, 'μL'
-        ivtt['rNTP mix'].std_stock_conc = 100, 'mM'
-        ivtt['rNTP mix'].master_mix = True
+        ivt['rNTP mix'].std_volume = 8.0, 'μL'
+        ivt['rNTP mix'].std_stock_conc = 100, 'mM'
+        ivt['rNTP mix'].master_mix = True
 
-    ivtt['HiScribe T7'].std_volume = 2.0, 'μL'
-    ivtt['HiScribe T7'].std_stock_conc = '10x'
-    ivtt['HiScribe T7'].master_mix = True
-    ivtt['HiScribe T7'].product_number = 'NEB E2040S'
+    ivt['HiScribe T7'].std_volume = 2.0, 'μL'
+    ivt['HiScribe T7'].std_stock_conc = '10x'
+    ivt['HiScribe T7'].master_mix = True
+    ivt['HiScribe T7'].product_number = 'NEB E2040S'
 
-    ivtt['DNA template'].std_volume = dna_uL, 'μL'
-    ivtt['DNA template'].std_stock_conc = dna_ng_uL, 'ng/μL'
+    ivt['DNA template'].std_volume = dna_uL, 'μL'
+    ivt['DNA template'].std_stock_conc = dna_ng_uL, 'ng/μL'
 
 elif 'ampliscribe'.startswith(args['--kit'].lower()):
     incubation_time = args['--incubate'] or 1
@@ -141,45 +142,45 @@ elif 'ampliscribe'.startswith(args['--kit'].lower()):
     water_uL = non_reagent_uL - dna_uL
 
     if water_uL <= 0:
-        print(f"Warning: cannot reach {err['desired_dna']} of DNA, using {err['max_dna'](non_reagent_uL)} instead.", end="\n\n")
+        warn = f"Cannot reach the recommended {err['desired_dna']} of DNA, using {err['max_dna'](non_reagent_uL)} instead."
         dna_uL = non_reagent_uL
     else:
-        ivtt['nuclease-free water'].std_volume = water_uL, 'μL'
-        ivtt['nuclease-free water'].master_mix = True
+        ivt['nuclease-free water'].std_volume = water_uL, 'μL'
+        ivt['nuclease-free water'].master_mix = True
 
-    ivtt['reaction buffer'].std_volume = 2.0, 'μL'
-    ivtt['reaction buffer'].std_stock_conc = '10x'
-    ivtt['reaction buffer'].master_mix = True
+    ivt['reaction buffer'].std_volume = 2.0, 'μL'
+    ivt['reaction buffer'].std_stock_conc = '10x'
+    ivt['reaction buffer'].master_mix = True
 
     if args['--no-rntp-mix']:
-        ivtt['ATP'].std_volume = 1.8, 'μL'
-        ivtt['ATP'].std_stock_conc = 100, 'mM'
-        ivtt['ATP'].master_mix = True
-        ivtt['CTP'].std_volume = 1.8, 'μL'
-        ivtt['CTP'].std_stock_conc = 100, 'mM'
-        ivtt['CTP'].master_mix = True
-        ivtt['GTP'].std_volume = 1.8, 'μL'
-        ivtt['GTP'].std_stock_conc = 100, 'mM'
-        ivtt['GTP'].master_mix = True
-        ivtt['UTP'].std_volume = 1.8, 'μL'
-        ivtt['UTP'].std_stock_conc = 100, 'mM'
-        ivtt['UTP'].master_mix = True
+        ivt['ATP'].std_volume = 1.8, 'μL'
+        ivt['ATP'].std_stock_conc = 100, 'mM'
+        ivt['ATP'].master_mix = True
+        ivt['CTP'].std_volume = 1.8, 'μL'
+        ivt['CTP'].std_stock_conc = 100, 'mM'
+        ivt['CTP'].master_mix = True
+        ivt['GTP'].std_volume = 1.8, 'μL'
+        ivt['GTP'].std_stock_conc = 100, 'mM'
+        ivt['GTP'].master_mix = True
+        ivt['UTP'].std_volume = 1.8, 'μL'
+        ivt['UTP'].std_stock_conc = 100, 'mM'
+        ivt['UTP'].master_mix = True
     else:
-        ivtt['rNTP mix'].std_volume = 7.2, 'μL'
-        ivtt['rNTP mix'].std_stock_conc = 100, 'mM'
-        ivtt['rNTP mix'].master_mix = True
+        ivt['rNTP mix'].std_volume = 7.2, 'μL'
+        ivt['rNTP mix'].std_stock_conc = 100, 'mM'
+        ivt['rNTP mix'].master_mix = True
 
-    ivtt['DTT'].std_volume = 2.0, 'μL'
-    ivtt['DTT'].std_stock_conc = 100, 'mM'
-    ivtt['DTT'].master_mix = True
-    ivtt['RiboGuard RNase innhibitor'].std_volume = 0.5, 'μL'
-    ivtt['RiboGuard RNase innhibitor'].std_stock_conc = '40x'
-    ivtt['RiboGuard RNase innhibitor'].master_mix = True
-    ivtt['Ampliscribe T7 (Epicentre)'].std_volume = 2.0, 'μL'
-    ivtt['Ampliscribe T7 (Epicentre)'].std_stock_conc = '10x'
-    ivtt['Ampliscribe T7 (Epicentre)'].master_mix = True
-    ivtt['DNA template'].std_volume = dna_uL, 'μL'
-    ivtt['DNA template'].std_stock_conc = dna_ng_uL, 'ng/μL'
+    ivt['DTT'].std_volume = 2.0, 'μL'
+    ivt['DTT'].std_stock_conc = 100, 'mM'
+    ivt['DTT'].master_mix = True
+    ivt['RiboGuard RNase innhibitor'].std_volume = 0.5, 'μL'
+    ivt['RiboGuard RNase innhibitor'].std_stock_conc = '40x'
+    ivt['RiboGuard RNase innhibitor'].master_mix = True
+    ivt['Ampliscribe T7 (Epicentre)'].std_volume = 2.0, 'μL'
+    ivt['Ampliscribe T7 (Epicentre)'].std_stock_conc = '10x'
+    ivt['Ampliscribe T7 (Epicentre)'].master_mix = True
+    ivt['DNA template'].std_volume = dna_uL, 'μL'
+    ivt['DNA template'].std_stock_conc = dna_ng_uL, 'ng/μL'
 
 else:
     print("Unknown in vitro transcription kit: '{}'".format(args['--kit']))
@@ -195,15 +196,19 @@ Wipe down your bench and anything you'll touch
 ## In vitro transcription
 
 protocol += """\
-Setup {:? in vitro transcription reaction/s} by 
+Setup {:# in vitro transcription reaction/s} by 
 mixing the following reagents at room temperature 
-in the order given.
+in the order given{}.
 
 {}""".format(
-        plural(ivtt.num_reactions), ivtt)
+        plural(ivt.num_reactions), ' [1]' if warn else '', ivt)
+
+if warn:
+    from textwrap import fill
+    protocol.footnotes[1] = fill(warn, width=49)
 
 protocol += """\
-Incubate at {}°C (thermocycler) for {:? hour/s}.""".format(
+Incubate at {}°C (thermocycler) for {:# hour/s}.""".format(
         incubation_temp, plural(incubation_time))
 
 ## Purify product
@@ -249,7 +254,7 @@ Nanodrop to determine the RNA concentration."""
 
 protocol += """\
 Dilute (if desired) enough RNA to make several 
-15 μL aliquots and to run a gel.  Keep any left- 
+10 μM aliquots and to run a gel.  Keep any left- 
 over RNA undiluted.  Flash-freeze in liquid N₂ and 
 store at -80°C."""
 
