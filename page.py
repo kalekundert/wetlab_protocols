@@ -5,6 +5,7 @@ Load, run and stain PAGE gels
 
 Usage:
     page sds <n> [options]
+    page sdsmax <n> [options]
     page native <n> [options]
     page urea <n> [options]
 
@@ -43,26 +44,37 @@ params = {}
 def config_sds(params):
     params['title'] = 'SDS'
     params['sample_mix'] = stepwise.MasterMix.from_text("""\
-Reagent             Stock   Volume  MM?
-==============  =========  =======  ===
-loading buffer         4x  3.85 µL  yes
-reducing agent        10x  1.54 µL  yes
-protein                      10 µL
-""", solvent='protein')
+Reagent                 Stock      Volume  MM?
+======================  =====  ==========  ===
+water                          to 10.0 µL  yes
+Bolt LDS sample buffer     4x      2.5 µL  yes
+Bolt redcing agent        10x      1.0 µL  yes
+protein                            2.5 µL
+""")
     params['incubate'] = "70°C for 10 min"
     params['percent'] = "4−12%"
     params['load'] = params['sample_mix'].volume
     params['run'] = "165V for 42 min"
 
+def config_sds_max(params):
+    config_sds(params)
+    params['sample_mix'] = stepwise.MasterMix.from_text("""\
+Reagent             Stock       Volume  MM?
+==============  =========  ===========  ===
+loading buffer         4x      3.85 µL  yes
+reducing agent        10x      1.54 µL  yes
+protein                    to 15.39 µL
+""")
+
 def config_native(params):
     params['title'] = 'native'
     params['sample_mix'] = stepwise.MasterMix.from_text("""\
-Reagent             Stock   Volume  MM?
-==============  =========  =======  ===
-water                      6.00 µL  yes
-sample buffer          4x   2.5 µL  yes
-G-250 additive         5%  0.25 µL  yes
-DNA/protein                1.25 µL
+Reagent             Stock      Volume  MM?
+==============  =========  ==========  ===
+water                      to 6.00 µL  yes
+sample buffer          4x     2.50 µL  yes
+G-250 additive         5%     0.25 µL  yes
+DNA/protein                   1.25 µL
 """)
     params['percent'] = "3−12%"
     params['load'] = '5 µL'
@@ -76,11 +88,11 @@ DNA/protein                1.25 µL
 def config_urea(params):
     params['title'] = 'TBE/urea'
     params['sample_mix'] = stepwise.MasterMix.from_text("""\
-Reagent             Stock   Volume  MM?
-==============  =========  =======  ===
-water                         4 µL  yes
-sample buffer          2x     5 µL  yes
-RNA/DNA         200 ng/µL     1 µL
+Reagent             Stock    Volume  MM?
+==============  =========  ========  ===
+water                      to 10 µL  yes
+sample buffer          2x      5 µL  yes
+RNA/DNA         200 ng/µL      1 µL
 """)
     params['incubate'] = "70°C for 3 min"
     params['percent'] = '6%'
@@ -95,6 +107,8 @@ Stain in 1x PAGE GelRed for 30 min.
 
 if args['sds']:
     config_sds(params)
+if args['sdsmax']:
+    config_sds_max(params)
 if args['native']:
     config_native(params)
 if args['urea']:
