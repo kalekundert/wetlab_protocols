@@ -5,14 +5,21 @@
    - Gently shake for 5–10 minutes.
    - Rinse twice with water.
 
-   - Repeat until the background is sufficiently clear:
+   - Repeat until the background is clear:
      - Submerge the gel in fresh destain.
      - Microwave on high for 30 sec.
      - Place a wadded-up kimwipe in the destain.
      - Gently shake for 10 min.
 
+2. Image with a laser scanner [2]:
+
+   - ex: 658 nm
+   - em: 710BP40
+
 Note:
-[1] Coomassie stain contains methanol, so take care 
-    to avoid breathing methanol fumes when using the 
-    microwave.
+[1] Coomassie stain contains methanol, so avoid 
+    breathing fumes when using the microwave.
+
+[2] Note that Coomassie seems to quench fluorophores 
+    like FITC/GFP.  I don't know exactly why this is.
 
