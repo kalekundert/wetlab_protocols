@@ -1,12 +1,18 @@
-1. Place gel in Coomassie stain
+1. Stain with Coomassie:
 
-2. Microwave on high for 1 min, then shake for 10-20 minutes.  Be careful, 
-   because Coomassie stain has methanol and you don't want to breathe methanol 
-   fumes.
+   - Submerge the gel in fresh stain.
+   - Microwave on high for 30 sec [1].
+   - Gently shake for 5–10 minutes.
+   - Rinse twice with water.
 
-3. Replace the stain with destain and wadded-up Kimwipes.  Microwave on high 
-   for 1 min and shake for 10-20 minutes
+   - Repeat until the background is sufficiently clear:
+     - Submerge the gel in fresh destain.
+     - Microwave on high for 30 sec.
+     - Place a wadded-up kimwipe in the destain.
+     - Gently shake for 10 min.
 
-4. Repeat the destain step as necessary.
-
+Note:
+[1] Coomassie stain contains methanol, so take care 
+    to avoid breathing methanol fumes when using the 
+    microwave.
 
