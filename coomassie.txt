@@ -13,8 +13,8 @@
 
 2. Image with a laser scanner [2]:
 
-   - ex: 658 nm
-   - em: 710BP40
+   - laser: 658 nm
+   - filter: 710BP40
 
 Note:
 [1] Coomassie stain contains methanol, so avoid 

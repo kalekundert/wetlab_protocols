@@ -48,7 +48,7 @@ Reagent                 Stock      Volume  MM?
 ======================  =====  ==========  ===
 water                          to 10.0 µL  yes
 Bolt LDS sample buffer     4x      2.5 µL  yes
-Bolt redcing agent        10x      1.0 µL  yes
+Bolt reducing agent       10x      1.0 µL  yes
 protein                            2.5 µL
 """)
     params['incubate'] = "70°C for 10 min"
@@ -59,12 +59,13 @@ protein                            2.5 µL
 def config_sds_max(params):
     config_sds(params)
     params['sample_mix'] = stepwise.MasterMix.from_text("""\
-Reagent             Stock       Volume  MM?
-==============  =========  ===========  ===
-loading buffer         4x      3.85 µL  yes
-reducing agent        10x      1.54 µL  yes
-protein                    to 15.39 µL
+Reagent                 Stock       Volume  MM?
+======================  =====  ===========  ===
+Bolt LDS sample buffer     4x      3.85 µL  yes
+Bolt reducing agent       10x      1.54 µL  yes
+protein                        to 15.39 µL
 """)
+    params['load'] = params['sample_mix'].volume
 
 def config_native(params):
     params['title'] = 'native'
