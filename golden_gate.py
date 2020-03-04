@@ -4,10 +4,10 @@
 Perform a Golden Gate assembly reaction.
 
 Usage:
-    golden_gate.py [<fragments>] [<num_reactions>] [options]
+    golden_gate.py <backbone> <inserts>... [options]
 
 Arguments:
-    <fragments>
+    <backbone> <inserts>
         The DNA fragments to assemble.  For each fragment, the following 
         information can be specified:
         
@@ -27,28 +27,18 @@ Arguments:
           a molarity.
 
         For each individual fragment, specify whichever of the above fields are 
-        relevant, separated by commas.  In other words:
+        relevant, separated by colons.  In other words:
         
-            [<name>,]<conc>[,<length>]
+            [<name>:]<conc>[:<length>]
 
-        Separate different fragments from each other with ":".  The first 
-        fragment is taken to be the backbone (which is typically present at 
-        half the concentration of the inserts, see --excess-insert).  There 
-        must be at least two fragments.
-
-        Putting everything together, this is how you would specify an assembly 
-        between a backbone that is 70 ng/µL and 1800 bp long, and an insert 
-        that is 34 nM:
-
-            70,1800:34nM
-
-        By default, or if this argument is "-", you will be asked to provide 
-        the requisite fragment information via stdin. 
-
-    <num_reactions>
-        The number of reactions to setup.  The default is 1.
+        The only difference between the backbone and the fragments is that the 
+        backbone is typically present at half the concentration of the 
+        inserts, see --excess-insert.
 
 Options:
+    -n --num-reactions <N>  [default: 1]
+        The number of reactions to setup.
+
     -e --enzymes <type_IIS>
         The name(s) of the Type IIS restriction enzyme(s) to use for the 
         reaction.  To use more than one enzyme, enter comma-separated names.  
@@ -81,7 +71,7 @@ import docopt
 import dirty_water
 from dataclasses import dataclass
 
-def fragments_from_str(arg):
+def fragments_from_strs(frag_strs):
     """
     Parse fragments from a comma- and colon-separated string, i.e. that could 
     be specified on the command-line.
@@ -96,13 +86,12 @@ def fragments_from_str(arg):
     """
 
     fragments = []
-    frag_strs = arg.split(':')
 
     if len(frag_strs) < 2:
         raise ValueError("must specify at least two fragments")
 
     for i, frag_str in enumerate(frag_strs):
-        fields = frag_str.split(',')
+        fields = frag_str.split(':')
         frag_name = default_fragment_name(i)
         frag_size = None
 
@@ -220,7 +209,6 @@ def calc_fragment_volumes(frags, vol_uL=5, excess_insert=2):
     for i, f in enumerate(frags):
         f.vol_uL = x[i,0]
 
-
 def default_fragment_name(i):
     return "Backbone" if i == 0 else f"Insert #{i}"
 
@@ -312,47 +300,47 @@ def test_nM_from_conc():
     assert nM_from_conc(c(1, 'ng/µL'), 100) == approx(1e6/(650 * 100))
     assert nM_from_conc(c(1, 'ng/µL'), 1000) == approx(1e6/(650 * 1000))
 
-def test_fragments_from_str():
+def test_fragments_from_strs():
     from pytest import approx, raises
     f = Fragment
 
     ## 0 fragments
     with raises(ValueError):
-        fragments_from_str('')
+        fragments_from_strs('')
 
     ## 1 fragment
     with raises(ValueError):
-        fragments_from_str('30nM')
+        fragments_from_strs(['30nM'])
 
     ## 2 fragments
      # 3 arguments
-    assert fragments_from_str('30nM:Gene,60,1000') == [
+    assert fragments_from_strs(['30nM', 'Gene:60:1000']) == [
             f('Backbone', 30),
             f('Gene', approx((60 * 1e6) / (650 * 1000))),
     ]
      # 2 arguments: name, conc
-    assert fragments_from_str('30nM:Gene,60nM') == [
+    assert fragments_from_strs(['30nM', 'Gene:60nM']) == [
             f('Backbone', 30),
             f('Gene', 60),
     ]
     with raises(ValueError):
-        fragments_from_str('30nM:Gene,60')
+        fragments_from_strs(['30nM', 'Gene:60'])
 
      # 2 arguments: conc, size
-    assert fragments_from_str('30nM:60,1000') == [
+    assert fragments_from_strs(['30nM', '60:1000']) == [
             f('Backbone', 30.0),
             f('Insert #1', approx((60 * 1e6) / (650 * 1000))),
     ]
      # 1 argument: conc
-    assert fragments_from_str('30nM:60nM') == [
+    assert fragments_from_strs(['30nM', '60nM']) == [
             f('Backbone', 30),
             f('Insert #1', 60),
     ]
     with raises(ValueError):
-        fragments_from_str('30nM:60')
+        fragments_from_strs('30nM:60')
 
     ## 3 fragments
-    assert fragments_from_str('30nM:60nM:61nM') == [
+    assert fragments_from_strs(['30nM', '60nM', '61nM']) == [
             f('Backbone', 30),
             f('Insert #1', 60),
             f('Insert #2', 61),
@@ -377,11 +365,9 @@ if __name__ == '__main__':
     if dna_std_vol_uL > max_dna_std_vol_uL:
         raise ValueError(f"Cannot fit {real_vol(dna_std_vol_uL)} µL of DNA in a {rxn_vol_uL} µL reaction.")
 
-    if args['<fragments>'] and args['<fragments>'] != '-':
-        frags = fragments_from_str(args['<fragments>'])
-    else:
-        frags = fragments_from_input()
-
+    frags = fragments_from_strs(
+            [args['<backbone>']] + args['<inserts>'],
+    )
     calc_fragment_volumes(
             frags,
             vol_uL=dna_std_vol_uL,
@@ -390,7 +376,7 @@ if __name__ == '__main__':
 
     # Create the reaction table.
     golden_gate = dirty_water.Reaction()
-    golden_gate.num_reactions = float(args['<num_reactions>'] or 1)
+    golden_gate.num_reactions = eval(args['--num-reactions'])
 
     if dna_std_vol_uL != max_dna_std_vol_uL:
         golden_gate['Water'].std_volume = max_dna_std_vol_uL - dna_std_vol_uL, 'µL'
